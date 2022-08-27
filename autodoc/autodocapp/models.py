@@ -67,12 +67,3 @@ class UserRoles (models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/")
     id_role = models.ForeignKey('Roles', on_delete=models.PROTECT, verbose_name='Роль')
-
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        UserRoles.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_role(sender, instance, **kwargs):
-    instance.profile.save()
