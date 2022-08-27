@@ -62,8 +62,3 @@ class Sales (models.Model):
 
 class Roles (models.Model):
     role = models.CharField (max_length = 20, verbose_name = 'Роль')
-
-class UserRoles (models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to="photos/%Y/%m/%d/")
-    id_role = models.ForeignKey('Roles', on_delete=models.PROTECT, verbose_name='Роль')
