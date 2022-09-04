@@ -3,8 +3,8 @@ from .views import *
 from django.contrib import admin
 
 
-urlpatterns = {
+urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index), #Главное меню
-    path('authorization/', Authorization), #Авторизация
-}
+    path('', index.as_view(), name='home'), #Главное меню
+    path('authorization/', Authorization.as_view(), name='authorization'), #Авторизация
+]

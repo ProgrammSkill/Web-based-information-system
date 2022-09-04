@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link type="text/css" href="{% static 'autodoc/css/styleLogin.css' %}" rel="stylesheet" />
+    <title>Авторизация</title>
+</head>
+<body>
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+
+<div class="form-error">{{ form.non_field_errors }}</div>
+
+{% for f in form %}
+<p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}:</label>{{ f }}</p>
+<div class="form-error">{{ f.errors }}</div>
+{% endfor %}
+
+    <button type="submit">Войти</button>
+</form>
+
+{% endblock %}
+</body>
+</html>

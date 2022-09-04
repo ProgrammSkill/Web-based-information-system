@@ -62,3 +62,10 @@ class Sales (models.Model):
 
 class Roles (models.Model):
     role = models.CharField (max_length = 20, verbose_name = 'Роль')
+
+    def __str__(self):
+        return self.role
+
+    class Meta:
+        verbose_name = 'Роли'
+        verbose_name_plural = 'Роли'
