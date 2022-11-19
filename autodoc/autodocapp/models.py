@@ -1,10 +1,13 @@
 from django.db import models
-from django.urls import reverse
-from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
+class CustomUser(AbstractUser):
+    surname = models.CharField (max_length = 30, verbose_name = 'Фамилия')
+    last_name = models.CharField(max_length=30, verbose_name='Отчество')
+    birth_date = models.DateField(verbose_name='Дата рождения', null=True, blank= True)
+    photo = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name='Фотография')
+
+
 class Models (models.Model):
     мodel = models.CharField (max_length = 50, verbose_name = 'Модель марки')
 
@@ -59,13 +62,3 @@ class Sales (models.Model):
     id_autoParts = models.ForeignKey('AutoParts', on_delete=models.PROTECT, verbose_name='Автозапчасть')
     count = models.IntegerField(verbose_name='Количество')
     DateOfSale = models.DateField(verbose_name='Дата продажи')
-
-class Roles (models.Model):
-    role = models.CharField (max_length = 20, verbose_name = 'Роль')
-
-    def __str__(self):
-        return self.role
-
-    class Meta:
-        verbose_name = 'Роли'
-        verbose_name_plural = 'Роли'

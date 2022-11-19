@@ -5,15 +5,31 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
+from . import models
+import sqlite3
 
 from autodocapp.forms import LoginUserForm
 
+conn = sqlite3.connect(r'D:\Веб-информационная система\autodoc\db.sqlite3', check_same_thread=False)
 
 class index(TemplateView):
     # Checking on authorization in system
     def get(self, request):
         if request.user.is_authenticated:
-            return render(request, 'autodocapp/index.html')
+            id = request.user.id
+            cursor = conn.cursor()
+            id_autodocapp_customuser = cursor.execute("SELECT group_id FROM  autodocapp_customuser_groups WHERE customuser_id="+str(id)).fetchall()[0][0]
+            role = cursor.execute("SELECT name FROM  auth_group WHERE id=" + str(id_autodocapp_customuser)).fetchall()[0][0]
+            if role == 'Администратор':
+                return HttpResponse('Администратор')
+            elif role == 'Кладовщик':
+                return HttpResponse('Кладовщик')
+            elif role == 'Продавец':
+                return HttpResponse('no')
+            elif role == 'Директор':
+                return HttpResponse('no')
+            # return render(request, 'autodocapp/index.html')
+
         else:
             return redirect('authorization')
 
