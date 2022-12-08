@@ -1,3 +1,4 @@
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
@@ -7,7 +8,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from . import models
 import sqlite3
-
+from django.contrib.auth import logout
 from autodocapp.forms import LoginUserForm
 
 conn = sqlite3.connect(r'D:\Веб-информационная система\autodoc\db.sqlite3', check_same_thread=False)
@@ -20,15 +21,17 @@ class index(TemplateView):
             cursor = conn.cursor()
             id_autodocapp_customuser = cursor.execute("SELECT group_id FROM  autodocapp_customuser_groups WHERE customuser_id="+str(id)).fetchall()[0][0]
             role = cursor.execute("SELECT name FROM  auth_group WHERE id=" + str(id_autodocapp_customuser)).fetchall()[0][0]
-            if role == 'Администратор':
-                return HttpResponse('Администратор')
-            elif role == 'Кладовщик':
-                return HttpResponse('Кладовщик')
-            elif role == 'Продавец':
-                return HttpResponse('no')
-            elif role == 'Директор':
-                return HttpResponse('no')
-            # return render(request, 'autodocapp/index.html')
+            # if role == 'Администратор':
+            #     menu = [{'name': 'Пользователи', 'url': 'test'}]
+            #     return HttpResponse('Администратор')
+            # elif role == 'Кладовщик':
+            #     menu = [{'name': 'Справочник', 'url': 'test'}]
+            #     return HttpResponse('Кладовщик')
+            # elif role == 'Продавец':
+            #     return HttpResponse('no')
+            # elif role == 'Директор':
+            #     return HttpResponse('no')
+            return render(request, 'autodocapp/index.html', {'role': role, 'title': 'Главное меню'})
 
         else:
             return redirect('authorization')
@@ -63,7 +66,11 @@ class Authorization(LoginView):
 #     return redirect('login')
 
 
-# def Authorization(request):
-#     return render(request, 'autodocapp/authorization.html')
+class Marks(TemplateView):
+    def get(self, request):
+        return render(request, 'autodocapp/marks.html')
 
-#
+
+def logout_view(request):
+    logout(request)
+    return redirect('authorization')

@@ -1,0 +1,37 @@
+.menu {
+    display: flex;
+}
+
+.menu li{
+    width: 200px;
+    list-style: none;
+    background: #383c54;
+    position: relative;
+}
+
+.menu a{
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    padding: 0 10px;
+    height: 40px;
+    line-height: 40px;
+    transition: all .5s;
+}
+
+.menu a:hover{
+    background: #808291;
+}
+
+.menu ul{
+    position: absolute;
+    left: 0;
+    top: 100%;
+    display: none;
+    padding: 0;
+}
+
+.menu li:hover ul{
+    display: block;
+}

@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link  href="{% static 'autodocapp/css/styles.css' %}" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{{title}}</title>
+</head>
+<body>
+{% if role == 'Администратор' %}
+    <p>Администратор</p>
+    <ul class="menu">
+        <li><a href="">Автозапчасти</a></li>
+        <li><a href="">Автозапчасти в магазине</a></li>
+        <li><a href="">Выйти</a></li>
+    </ul>
+{% elif role == 'Кладовщик' %}
+<p>Кладовщик</p>
+    <ul class="menu">
+        <li><a href="">Автозапчасти</a></li>
+        <li><a href="">Автозапчасти в магазине</a></li>
+        <li><a href="">О сайте</a></li>
+        <li><a href="">Выйти</a></li>
+    </ul>
+{% elif role == 'Продавец' %}
+    <p>Продавец</p>
+    <ul class="menu">
+        <li><a href="">Автозапчасти в магазине</a></li>
+        <li><a href="">Продажа</a></li>
+        <li><a href="">О сайте</a></li>
+        <li><a href="">Выйти</a></li>
+    <ul class="menu">
+{% elif role == 'Менеджер' %}
+    <p>Менеджер</p>
+    <ul class="menu">
+        <li><a href="">Справочник</a>
+            <ul>
+                <li><a href="">Марки</a></li>
+                <li><a href="">Модели</a></li>
+                <li><a href="">Марки и модели</a></li>
+                <li><a href="">Города</a></li>
+                <li><a href="">Улицы</a></li>
+                <li><a href="">Производители</a></li>
+            </ul>
+        </li>
+        <li><a href="">Магазин</a></li>
+        <li><a href="">Поставщики</a></li>
+        <li><a href="">Поставка</a></li>
+        <li><a href="">Магазин</a></li>
+        <li><a href="">О сайте</a></li>
+        <li><a href="">Выйти</a></li>
+    </ul>
+{% else %}
+    <p>Директор</p>
+        <ul class="menu">
+            <li><a href="">Отчёт по расходам</a></li>
+            <li><a href="">Отчёт по поставкам</a></li>
+            <li><a href="">О сайте</a></li>
+            <li><a href="">Выйти</a></li>
+        </ul>
+{% endif %}
+
+
+{% block content %}
+{% endblock %}
+</body>
+</html>

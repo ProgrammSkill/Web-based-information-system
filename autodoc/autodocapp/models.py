@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     surname = models.CharField (max_length = 30, verbose_name = 'Фамилия')
     last_name = models.CharField(max_length=30, verbose_name='Отчество')
-    birth_date = models.DateField(verbose_name='Дата рождения', null=True, blank= True)
+    birth_date = models.DateField(verbose_name='Дата рождения', null=True)
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name='Фотография')
 
 
