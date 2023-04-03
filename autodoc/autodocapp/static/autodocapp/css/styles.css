@@ -2,6 +2,7 @@
     display: flex;
 }
 
+
 .menu li{
     width: 200px;
     list-style: none;
@@ -34,4 +35,96 @@
 
 .menu li:hover ul{
     display: block;
+}
+
+
+
+#footer {
+    background: #383c54;
+    color: #aaa;
+    font-size: 14px;
+    font-family: Verdana, Geneva, Arial, Helvetica;
+    text-align: left;
+	overflow: hidden;
+    position:fixed;
+    right:0;
+    bottom:0;
+    width:100%;
+    height: 70px;
+}
+#footer p {
+	text-decoration: underline;
+	color: #fff;
+}
+
+.asd {
+    background-color: #FFFFFF;
+}
+
+.container {
+    background-color: #FFFFFF;
+}
+
+/* Стили для подложки */
+.overlay {
+
+   /* Скрываем подложку  */
+   opacity: 0;
+   visibility: hidden;
+
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, .5);
+   z-index: 20;
+   transition: .3s all;
+}
+
+.overlay.active{
+   opacity: 1;
+   visibility: visible;
+}
+
+/* Стили для модальных окон */
+
+.modal {
+    display: none;
+
+    width: 100%;
+    max-width: 500px;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    z-index: 30;
+    left: 0;
+    top: 0;
+
+    overflow: auto;
+     /*  Установаем ширину окна  */
+   width: 100%;
+   max-width: 500px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-width: bold;
+}
+
+
+.search {
+    width: 250px;
 }

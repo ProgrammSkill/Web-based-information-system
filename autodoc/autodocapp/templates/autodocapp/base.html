@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link  href="{% static 'autodocapp/css/styles.css' %}" rel="stylesheet">
+    <link  href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>{{title}}</title>
 </head>
@@ -13,7 +14,7 @@
     <ul class="menu">
         <li><a href="">Автозапчасти</a></li>
         <li><a href="">Автозапчасти в магазине</a></li>
-        <li><a href="">Выйти</a></li>
+        <li><a href="{% url 'logout' %}">Выйти</a></li>
     </ul>
 {% elif role == 'Кладовщик' %}
 <p>Кладовщик</p>
@@ -21,7 +22,7 @@
         <li><a href="">Автозапчасти</a></li>
         <li><a href="">Автозапчасти в магазине</a></li>
         <li><a href="">О сайте</a></li>
-        <li><a href="">Выйти</a></li>
+        <li><a href="{% url 'logout' %}">Выйти</a></li>
     </ul>
 {% elif role == 'Продавец' %}
     <p>Продавец</p>
@@ -29,17 +30,17 @@
         <li><a href="">Автозапчасти в магазине</a></li>
         <li><a href="">Продажа</a></li>
         <li><a href="">О сайте</a></li>
-        <li><a href="">Выйти</a></li>
+        <li><a href="{% url 'logout' %}">Выйти</a></li>
     <ul class="menu">
 {% elif role == 'Менеджер' %}
     <p>Менеджер</p>
     <ul class="menu">
         <li><a href="">Справочник</a>
             <ul>
-                <li><a href="">Марки</a></li>
-                <li><a href="">Модели</a></li>
-                <li><a href="">Марки и модели</a></li>
-                <li><a href="">Города</a></li>
+                <li><a href="{% url 'marks' %}">Марки</a></li>
+                <li><a href="{% url 'models' %}">Модели</a></li>
+                <li><a href="{% url 'brands_and_models' %}">Марки и модели</a></li>
+                <li><a href="{% url 'cities' %}">Города</a></li>
                 <li><a href="">Улицы</a></li>
                 <li><a href="">Производители</a></li>
             </ul>
@@ -49,7 +50,7 @@
         <li><a href="">Поставка</a></li>
         <li><a href="">Магазин</a></li>
         <li><a href="">О сайте</a></li>
-        <li><a href="">Выйти</a></li>
+        <li><a href="{% url 'logout' %}">Выйти</a></li>
     </ul>
 {% else %}
     <p>Директор</p>
@@ -57,12 +58,21 @@
             <li><a href="">Отчёт по расходам</a></li>
             <li><a href="">Отчёт по поставкам</a></li>
             <li><a href="">О сайте</a></li>
-            <li><a href="">Выйти</a></li>
+            <li><a href="{% url 'logout' %}">Выйти</a></li>
         </ul>
 {% endif %}
-
+<a href="">{{ user.first_name }} {{ user.surname }}</a>
 
 {% block content %}
 {% endblock %}
+
+
+<div id="footer">
+    <p>&copy; 2023 Частичное или полное копирование информации с данного сайта для распространения на других ресурсах, в том числе и бумажных, строго запрещено.</p>
+</div>
+<!-- Конец footer'а и страницы -->
+<script  type="text/javascript" src="{% static 'autodocapp/js/jquery-3.6.3.min.js' %}"></script>
+<script  type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script  type="text/javascript" src="{% static 'autodocapp/js/scripts.js' %}"></script>
 </body>
 </html>

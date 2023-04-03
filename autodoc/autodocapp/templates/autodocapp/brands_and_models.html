@@ -1,0 +1,122 @@
+{% extends 'autodocapp/base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="col-md-12 well">
+        <hr style="border-top:1px dotted #ccc;"/>
+        <h1 class="page-header">Связи между марками и моделями</h1>
+          <p>
+            <button type="button" class="btn btn-primary js-create-brand-model">
+              <span class="glyphicon glyphicon-plus"></span>
+              + Новая связь
+            </button>
+         </p>
+
+        <table class="table table-borderless table-hover" id="table">
+            <thead>
+              <tr>
+                <th scope="col">Марка</th>
+                <th scope="col">Модель</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for record in brand_and_models %}
+                <tr class="record">
+                    {% for b in brands %}
+                        {% if record.id_brand == b %}
+                            <td id="{{ b.id }}">{{record.id_brand}}</td>
+                        {% endif %}
+                    {% endfor %}
+                    {% for m in models %}
+                        {% if record.id_model == m %}
+                    <td id="{{ m.id }}">{{record.id_model}}</td>
+                        {% endif %}
+                    {% endfor %}
+                    <td style="width: 150px">
+                        <a class="btn_delete_record btn-outline-danger" href="{% url 'delete_brand_and_model' record.id %}"><button class="btn btn-outline-danger">Удалить</button></a>
+                    </td>
+                    <td>
+                        <a class="BthEditBrandAndModel btn-outline-primary" href="{% url 'edit_brand_and_model' record.id %}"><button class="btn btn-outline-primary">Редактировать</button></a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">Нет моделей</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div id="ModalCreateBrandAndMark" class="modal">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Создание связи</h5>
+            <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="formCreateBrandAndMark" method="post" action="{% url 'create_brand_and_model' %}">
+            <div class="form-group validate">
+                {% csrf_token %}
+                <select name="id_brand" class="form-select mb-3" aria-label=".form-select-lg example">
+                    <option selected>Выберите марку</option>
+                    {% for b in brands %}
+                        <option value='{{ b.id }}'>{{ b }}</option>
+                    {% endfor %}
+                </select>
+                <small class="text-red text-muted mySpan"></small>
+                <select name="id_model" class="form-select mb-3" aria-label=".form-select-lg example">
+                    <option selected>Выберите модель</option>
+                    {% for m in models %}
+                        <option value='{{ m.id }}'>{{ m }}</option>
+                    {% endfor %}
+                </select>
+                <small class="text-red text-muted mySpan"></small>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary btnSaveBrandAndModel">Сохранить</button>
+            </div>
+         </form>
+    </div>
+    </div>
+</div>
+
+
+<div id="ModalEditBrandAndModel" class="modal">
+    <div class="modal-dialog">
+    <div class="modal-content">
+<!--        <span class="close btn-close" data-bs-dismiss="modal" aria-label="Close">&times;</span>-->
+        <div class="modal-header">
+            <h5 class="modal-title">Редактирование марки</h5>
+            <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="formEditBrandAndModel" method="post" action="">
+            <div class="form-group validate">
+                {% csrf_token %}
+                <select name="id_brand" class="form-select mb-3" aria-label=".form-select-lg example">
+                    {% for b in brands %}
+                        <option value='{{ b.id }}'>{{ b }}</option>
+                    {% endfor %}
+                </select>
+                <small class="text-red text-muted mySpan"></small>
+                <select name="id_model" class="form-select mb-3" aria-label=".form-select-lg example">
+                    {% for m in models %}
+                        <option value='{{ m.id }}'>{{ m }}</option>
+                    {% endfor %}
+                </select>
+                <small class="text-red text-muted mySpan"></small>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary btnUpdateModel">Обновить</button>
+            </div>
+         </form>
+    </div>
+    </div>
+</div>
+
+<div class="overlay" id="overlay-modal"></div>
+
+
+{% endblock %}

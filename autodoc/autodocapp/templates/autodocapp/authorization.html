@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <link type="text/css" href="{% static 'autodocapp/css/styleLogin.css' %}" rel="stylesheet" />
+    <link  href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -13,18 +14,21 @@
 {% block content %}
 
 <form method="post">
+<div class="mb-3">
     {% csrf_token %}
 
-<div class="form-error">{{ form.non_field_errors }}</div>
+    <div class="form-error">{{ form.non_field_errors }}</div>
 
-{% for f in form %}
-<p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}:</label>{{ f }}</p>
-<div class="form-error">{{ f.errors }}</div>
-{% endfor %}
+    {% for f in form %}
+    <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}</label>{{ f }}</p>
+    <div class="form-error">{{ f.errors }}</div>
+    {% endfor %}
 
-    <button type="submit">Войти</button>
+        <button class="btn btn-outline-primary" type="submit">Войти</button>
+</div>
 </form>
 
 {% endblock %}
+<script  type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 </body>
 </html>

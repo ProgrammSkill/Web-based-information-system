@@ -2,20 +2,20 @@
 {% block content %}
 
 <div class="">
-    <form class="form-inline my-2 my-lg-0" action="{% url 'search_mark' %}" method="get">
+    <form class="form-inline my-2 my-lg-0" action="{% url 'search_model' %}" method="get">
         <input class="search" type="search" placeholder="Поиск" aria-label="Поиск" name="q">
         <button class="btn btn-outline-success my-2 my-sm" type="submit">Поиск</button>
     </form>
 </div>
 
-<div class="container asd">
+<div class="container">
     <div class="col-md-12 well">
         <hr style="border-top:1px dotted #ccc;"/>
-        <h1 class="page-header">Марки</h1>
+        <h1 class="page-header">Модели</h1>
           <p>
-            <button type="button" class="btn btn-primary js-create-mark">
+            <button type="button" class="btn btn-primary js-create-model">
               <span class="glyphicon glyphicon-plus"></span>
-              + Новая марка
+              + Новая модель
             </button>
          </p>
 
@@ -26,19 +26,19 @@
               </tr>
             </thead>
             <tbody>
-                {% for m in marks %}
+                {% for m in models %}
                 <tr class="record">
-                    <td>{{m.brand}}</td>
+                    <td>{{m.model}}</td>
                     <td style="width: 150px">
-                        <a class="btn_delete_record btn-outline-danger" href="{% url 'delete_mark' m.id %}"><button class="btn btn-outline-danger">Удалить</button></a>
+                        <a class="btn_delete_record btn-outline-danger" href="{% url 'delete_model' m.id %}"><button class="btn btn-outline-danger">Удалить</button></a>
                     </td>
                     <td>
-                        <a class="BthEditMark btn-outline-primary" href="{% url 'edit_mark' m.id %}"><button class="btn btn-outline-primary">Редактировать</button></a>
+                        <a class="BthEditModel btn-outline-primary" href="{% url 'edit_model' m.id %}"><button class="btn btn-outline-primary">Редактировать</button></a>
                     </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="8" class="text-center">Нет марок</td>
+                    <td colspan="8" class="text-center">Нет моделей</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -46,7 +46,30 @@
     </div>
 </div>
 
-<div id="ModalEditMark" class="modal">
+
+<div id="ModalCreateModel" class="modal">
+    <div class="modal-dialog">
+    <div class="modal-content">
+<!--        <span class="close btn-close" data-bs-dismiss="modal" aria-label="Close">&times;</span>-->
+        <div class="modal-header">
+            <h5 class="modal-title">Создание модели</h5>
+            <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="formCreateModel" method="post" action="{% url 'create_model' %}">
+            <div class="form-group validate">
+                {% csrf_token %}
+                <input value="" type="text" name="model" class="form-control" placeholder="Введите наименование модели">
+                <small class="text-red text-muted mySpan"></small>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary btnSaveModel">Сохранить</button>
+            </div>
+         </form>
+    </div>
+    </div>
+</div>
+
+<div id="ModalEditModel" class="modal">
     <div class="modal-dialog">
     <div class="modal-content">
 <!--        <span class="close btn-close" data-bs-dismiss="modal" aria-label="Close">&times;</span>-->
@@ -54,37 +77,14 @@
             <h5 class="modal-title">Редактирование марки</h5>
             <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form id="formEditMark" method="post" action="">
+        <form id="formEditModel" method="post" action="">
             <div class="form-group validate">
                 {% csrf_token %}
-                <input type="text" name="brand" class="form-control" placeholder="Введите наименование марки">
+                <input type="text" name="model" class="form-control" placeholder="Введите наименование марки">
                 <small class="text-red text-muted mySpan"></small>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary btnUpdateMark">Обновить</button>
-            </div>
-         </form>
-    </div>
-    </div>
-</div>
-
-
-<div id="ModalCreateMark" class="modal">
-    <div class="modal-dialog">
-    <div class="modal-content">
-<!--        <span class="close btn-close" data-bs-dismiss="modal" aria-label="Close">&times;</span>-->
-        <div class="modal-header">
-            <h5 class="modal-title">Создание марки</h5>
-            <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form id="formCreateMark" method="post" action="{% url 'create_mark' %}">
-            <div class="form-group validate">
-                {% csrf_token %}
-                <input value="" type="text" name="brand" class="form-control" placeholder="Введите наименование марки">
-                <small class="text-red text-muted mySpan"></small>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary btnSaveMark">Сохранить</button>
+                <button type="submit" class="btn btn-primary btnUpdateModel">Обновить</button>
             </div>
          </form>
     </div>
@@ -92,17 +92,5 @@
 </div>
 
 <div class="overlay" id="overlay-modal"></div>
-
-
-
-<!--<div id="AddMark">-->
-<!--    <h1>Добавление марок</h1>-->
-<!--    <form action="{% url 'create_mark' %}" method="POST" >-->
-<!--        {% csrf_token %}-->
-<!--        {{ form }}-->
-<!--        <button class="btn btn-success" type="submit">Добавить</button>-->
-<!--    </form>-->
-<!--</div>-->
-
 
 {% endblock %}

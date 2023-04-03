@@ -8,30 +8,48 @@ class CustomUser(AbstractUser):
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name='Фотография')
 
 
-class Models (models.Model):
-    мodel = models.CharField (max_length = 50, verbose_name = 'Модель марки')
-
 class Brands (models.Model):
     brand = models.CharField (max_length = 50, verbose_name = 'Марка автозапчасти')
 
+    def __str__(self):
+        return self.brand
+
+    def get_absolute_url(self):
+        return f'autodocapp/marks.html'
+
+class Models (models.Model):
+    model = models.CharField (max_length = 50, verbose_name = 'Модель марки')
+
+    def __str__(self):
+        return self.model
+
+    def get_absolute_url(self):
+        return f'autodocapp/models.html'
+
+
 class BrandsAndModels (models.Model):
-    id_brand = models.ForeignKey('Brands', on_delete = models.PROTECT, verbose_name = 'Марка автомобиля')
-    id_model = models.ForeignKey('Models', on_delete = models.PROTECT, verbose_name = 'Модель')
+    id_brand = models.ForeignKey('Brands', on_delete = models.CASCADE, verbose_name = 'Марка автомобиля')
+    id_model = models.ForeignKey('Models', on_delete = models.CASCADE, verbose_name = 'Модель')
+
 
 class Cities (models.Model):
     city = models.CharField (max_length = 50, verbose_name = 'Город')
 
+
 class Streets (models.Model):
     street = models.CharField (max_length = 50, verbose_name = 'Улица')
 
+
 class Manufacturers (models.Model):
     manufacturer = models.CharField (max_length = 50, verbose_name = 'Производитель')
+
 
 class StoreDepartments (models.Model):
     id_city = models.ForeignKey('Cities', on_delete=models.PROTECT, verbose_name='Город')
     id_street = models.ForeignKey('Streets', on_delete=models.PROTECT, verbose_name='Улица')
     house = models.CharField (max_length = 10, verbose_name = 'Дом')
     telephone = models.CharField (max_length = 20, verbose_name = 'Телефон')
+
 
 class AutoParts (models.Model):
     vendor_code = models.CharField (max_length=20, verbose_name='Артикул')
@@ -41,6 +59,7 @@ class AutoParts (models.Model):
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/")
     comment = models.TextField(verbose_name='Комментарий')
 
+
 class AutoPartsInStock (models.Model):
     id_StoreDepartment = models.ForeignKey('StoreDepartments', on_delete=models.PROTECT, verbose_name='Магазин')
     id_StoreDepartment = models.ForeignKey('AutoParts', on_delete=models.PROTECT, verbose_name='Автозапчасть')
@@ -49,6 +68,7 @@ class AutoPartsInStock (models.Model):
     id_manufacturer = models.ForeignKey('Manufacturers', on_delete=models.PROTECT, verbose_name='Производитель')
     comment = models.TextField(verbose_name='Комментарий')
 
+
 class Suppliers (models.Model):
     title = models.CharField (max_length=30, verbose_name = 'Наименование организации')
     INN = models.IntegerField (verbose_name = 'ИНН')
@@ -56,6 +76,7 @@ class Suppliers (models.Model):
     FullNameManager = models.CharField (max_length = 150, verbose_name = 'ФИО руководителя')
     telephone = models.CharField (max_length = 20, verbose_name = 'Телефон')
     email = models.CharField (max_length = 30, verbose_name = 'Эл почта')
+
 
 class Sales (models.Model):
     id_suppliers = models.ForeignKey('StoreDepartments', on_delete=models.PROTECT, verbose_name='Отдел магазина')
