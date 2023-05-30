@@ -35,3 +35,9 @@ class BrandsAndModelsForm(ModelForm):
     class Meta:
         model = BrandsAndModels
         fields = ['id_brand', 'id_model']
+
+
+class CityForm(ModelForm):
+    class Meta:
+        model = Cities
+        fields = ['city']

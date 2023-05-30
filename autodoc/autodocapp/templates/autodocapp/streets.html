@@ -1,0 +1,50 @@
+{% extends 'autodocapp/base.html' %}
+{% block content %}
+
+<div class="">
+    <form class="form-inline my-2 my-lg-0" action="" method="get">
+        <input class="search" type="search" placeholder="Поиск" aria-label="Поиск" name="q">
+        <button class="btn btn-outline-success my-2 my-sm" type="submit">Поиск</button>
+    </form>
+</div>
+
+<div class="container">
+    <div class="col-md-12 well">
+        <hr style="border-top:1px dotted #ccc;"/>
+        <h1 class="page-header">Улицы</h1>
+          <p>
+            <button type="button" class="btn btn-primary js-create-сity">
+              <span class="glyphicon glyphicon-plus"></span>
+              + Новая улица
+            </button>
+         </p>
+
+        <table class="table table-borderless table-hover" id="table">
+            <thead>
+              <tr>
+                <th scope="col">Наименование</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for c in streets %}
+                <tr class="record">
+                    <td>{{c.streets}}</td>
+                    <td style="width: 150px">
+                        <a class="btn_delete_record btn-outline-danger" href=""><button class="btn btn-outline-danger">Удалить</button></a>
+                    </td>
+                    <td>
+                        <a class="BthEditModel btn-outline-primary" href=""><button class="btn btn-outline-primary">Редактировать</button></a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">Нет улиц</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

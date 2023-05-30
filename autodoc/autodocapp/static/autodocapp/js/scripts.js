@@ -32,7 +32,6 @@ $("#formEditMark").on("submit", function(e){
 
         if(!$this.val()) {
             valid = false;
-//            $this.parents('.validate').find('.mySpan').text($this.attr('name').replace(/[\_]+/g, ' ') + ' ошибка в запросе');
             $this.parents('.validate').find('.mySpan').text('Поле пустое');
         }
     });
@@ -172,7 +171,6 @@ $("#formEditModel").on("submit", function(e){
 
         if(!$this.val()) {
             valid = false;
-//            $this.parents('.validate').find('.mySpan').text($this.attr('name').replace(/[\_]+/g, ' ') + ' ошибка в запросе');
             $this.parents('.validate').find('.mySpan').text('Поле пустое');
         }
     });
@@ -201,9 +199,9 @@ $("#formEditModel").on("submit", function(e){
 
 //======================================================================================================================
 
-$(".js-create-brand-model").on("click", function(e){
+$(".js-create-city").on("click", function(e){
     overlay.classList.add('active');
-    $("#ModalCreateBrandAndMark").css('display','block');
+    $("#ModalCreateCity").css('display','block');
     return false;
 });
 
@@ -258,5 +256,53 @@ $("#formEditBrandAndModel").on("submit", function(e){
         }
     });
 
+    return false;
+});
+
+
+var old_value_city;
+$("#table tbody").on("click", ".BthEditCity", function(e){
+    e.preventDefault();
+    var $this = $(this);
+    let name_city = $this.parents(".record").find('td').eq(0).text();
+    old_value_city =  $this.parents(".record").find('td').eq(0);
+    $("#formEditCity input[name='city']").val(name_city);
+    $("#formEditCity").attr("action", $this.attr("href"));
+    overlay.classList.add('active');
+    $("#ModalEditCity").css('display','block');
+    return false;
+});
+
+$("#formEditCity").on("submit", function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var $this = $(this);
+    var valid = true;
+    $('#formEditCity input').each(function() {
+        let $this = $(this);
+
+        if(!$this.val()) {
+            valid = false;
+            $this.parents('.validate').find('.mySpan').text('Поле пустое');
+        }
+    });
+    if(valid){
+        let data = $this.serialize();
+        $.ajax({
+            url: $this.attr("action"),
+            type: "POST",
+            data: data,
+            dataType: "json",
+            success: function(resp){
+                $("#ModalEditCity").css('display','none');
+                overlay.classList.remove('active');
+                let new_value_city = $("#formEditCity input[name='city']").val();
+                old_value_city.replaceWith('<td>'+new_value_city+'</td>');
+            },
+            error: function(resp){
+                alert("Что-то пошло не так при редактировании");
+            }
+        });
+    }
     return false;
 });

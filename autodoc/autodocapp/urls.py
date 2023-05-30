@@ -25,9 +25,12 @@ urlpatterns = [
     path('create_brand_and_model/', BrandAndModelCreateView.as_view(), name='create_brand_and_model'),  # create
     path('edit_brand_and_model/<int:brand_and_model_id>/', BrandAndModelEditView.as_view(), name='edit_brand_and_model'),  # edit
     path('brands_and_models/delete_brand_and_model/<int:brand_and_model_id>/', delete_brand_and_model.as_view(), name='delete_brand_and_model'),
+    path('cities/create_city/', CityCreate.as_view(), name='create_city'),
+    path('edit_city/<int:city_id>', edit_city.as_view(), name='edit_city'),
+    path('delete_city/<int:city_id>/', delete_city.as_view(), name='delete_city'),
+    path('cities/search_city/', SearchCity.as_view(), name='search_city'),
     path('cities/', PrintCities, name='cities'),
-    path('models/search_model/', SearchCity.as_view(), name='search_city'),
-    path('marks/delete_mark/<int:city_id>/', delete_city.as_view(), name='delete_city'),
+    path('streets/', PrintStreets, name='streets'),
     # path("logout/", LogoutView.as_view(), name="logout"),
 
 ]

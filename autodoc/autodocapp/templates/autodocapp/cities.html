@@ -13,7 +13,7 @@
         <hr style="border-top:1px dotted #ccc;"/>
         <h1 class="page-header">Города</h1>
           <p>
-            <button type="button" class="btn btn-primary js-create-mark">
+            <button type="button" class="btn btn-primary js-create-city">
               <span class="glyphicon glyphicon-plus"></span>
               + Новый город
             </button>
@@ -30,10 +30,10 @@
                 <tr class="record">
                     <td>{{c.city}}</td>
                     <td style="width: 150px">
-                        <a class="btn_delete_record btn-outline-danger" href=""><button class="btn btn-outline-danger">Удалить</button></a>
+                        <a class="btn_delete_record btn-outline-danger" href="{% url 'delete_city' c.id %}"><button class="btn btn-outline-danger">Удалить</button></a>
                     </td>
                     <td>
-                        <a class="BthEditCity btn-outline-primary" href=""><button class="btn btn-outline-primary">Редактировать</button></a>
+                        <a class="BthEditCity btn-outline-primary" href="{% url 'edit_city' c.id %}"><button class="btn btn-outline-primary">Редактировать</button></a>
                     </td>
                 </tr>
                 {% empty %}
@@ -49,19 +49,18 @@
 <div id="ModalEditCity" class="modal">
     <div class="modal-dialog">
     <div class="modal-content">
-<!--        <span class="close btn-close" data-bs-dismiss="modal" aria-label="Close">&times;</span>-->
         <div class="modal-header">
             <h5 class="modal-title">Редактирование города</h5>
             <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form id="formEditСities" method="post" action="">
+        <form id="formEditCity" method="post" action="">
             <div class="form-group validate">
                 {% csrf_token %}
                 <input type="text" name="city" class="form-control" placeholder="Введите наименование города">
                 <small class="text-red text-muted mySpan"></small>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary btnUpdateMark">Обновить</button>
+                <button type="submit" class="btn btn-primary btnUpdateCity">Обновить</button>
             </div>
          </form>
     </div>
@@ -72,15 +71,14 @@
 <div id="ModalCreateCity" class="modal">
     <div class="modal-dialog">
     <div class="modal-content">
-<!--        <span class="close btn-close" data-bs-dismiss="modal" aria-label="Close">&times;</span>-->
         <div class="modal-header">
             <h5 class="modal-title">Создание города</h5>
             <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form id="formCreateCity" method="post" action="{% url 'create_mark' %}">
+        <form id="formCreateCity" method="post" action="{% url 'create_city' %}">
             <div class="form-group validate">
                 {% csrf_token %}
-                <input value="" type="text" name="brand" class="form-control" placeholder="Введите наименование города">
+                <input value="" type="text" name="city" class="form-control" placeholder="Введите наименование города">
                 <small class="text-red text-muted mySpan"></small>
             </div>
             <div class="modal-footer">
