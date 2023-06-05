@@ -28,27 +28,27 @@ class Models (models.Model):
 
 
 class BrandsAndModels (models.Model):
-    id_brand = models.ForeignKey('Brands', on_delete = models.CASCADE, verbose_name='Марка автомобиля')
-    id_model = models.ForeignKey('Models', on_delete = models.CASCADE, verbose_name='Модель')
+    id_brand = models.ForeignKey('Brands', on_delete=models.CASCADE, verbose_name='Марка автомобиля')
+    id_model = models.ForeignKey('Models', on_delete=models.CASCADE, verbose_name='Модель')
 
 
 class Cities (models.Model):
-    city = models.CharField (max_length=50, verbose_name='Город')
+    city = models.CharField(max_length=50, verbose_name='Город')
 
 
 class Streets (models.Model):
-    street = models.CharField (max_length = 50, verbose_name='Улица')
+    street = models.CharField(max_length=50, verbose_name='Улица')
 
 
 class Manufacturers (models.Model):
-    manufacturer = models.CharField (max_length=50, verbose_name='Производитель')
+    manufacturer = models.CharField(max_length=50, verbose_name='Производитель')
 
 
 class StoreDepartments (models.Model):
     id_city = models.ForeignKey('Cities', on_delete=models.PROTECT, verbose_name='Город')
     id_street = models.ForeignKey('Streets', on_delete=models.PROTECT, verbose_name='Улица')
-    house = models.CharField(max_length = 10, verbose_name = 'Дом')
-    telephone = models.CharField(max_length = 20, verbose_name = 'Телефон')
+    house = models.CharField(max_length=10, verbose_name = 'Дом')
+    telephone = models.CharField(max_length=20, verbose_name = 'Телефон')
 
 
 class AutoParts (models.Model):

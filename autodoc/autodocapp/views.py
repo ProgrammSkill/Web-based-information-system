@@ -349,6 +349,15 @@ def PrintStreets(request):
     else:
         return redirect('authorization')
 
+class SearchStreet(ListView):
+    def get(self, request):
+        if request.user.is_authenticated:
+            role = CheckRole(request)
+            print(self.request.GET.get('q'))
+            streets = Streets.objects.filter(street__icontains=self.request.GET.get('q'))
+            return render(request, 'autodocapp/streets.html', {'role': role, 'title': 'Улицы', 'streets': streets})
+        else:
+            return redirect('authorization')
 
 def logout_view(request):
     logout(request)

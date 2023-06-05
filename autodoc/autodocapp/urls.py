@@ -30,6 +30,7 @@ urlpatterns = [
     path('delete_city/<int:city_id>/', delete_city.as_view(), name='delete_city'),
     path('cities/search_city/', SearchCity.as_view(), name='search_city'),
     path('cities/', PrintCities, name='cities'),
+    path('streets/search_street/', SearchStreet.as_view(), name='search_street'),
     path('streets/', PrintStreets, name='streets'),
     # path("logout/", LogoutView.as_view(), name="logout"),
 

@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="">
-    <form class="form-inline my-2 my-lg-0" action="" method="get">
+    <form class="form-inline my-2 my-lg-0" action="{% url 'search_street' %}" method="get">
         <input class="search" type="search" placeholder="Поиск" aria-label="Поиск" name="q">
         <button class="btn btn-outline-success my-2 my-sm" type="submit">Поиск</button>
     </form>
@@ -13,7 +13,7 @@
         <hr style="border-top:1px dotted #ccc;"/>
         <h1 class="page-header">Улицы</h1>
           <p>
-            <button type="button" class="btn btn-primary js-create-сity">
+            <button type="button" class="btn btn-primary js-create-street">
               <span class="glyphicon glyphicon-plus"></span>
               + Новая улица
             </button>
@@ -26,9 +26,9 @@
               </tr>
             </thead>
             <tbody>
-                {% for c in streets %}
+                {% for s in streets %}
                 <tr class="record">
-                    <td>{{c.streets}}</td>
+                    <td>{{s.street}}</td>
                     <td style="width: 150px">
                         <a class="btn_delete_record btn-outline-danger" href=""><button class="btn btn-outline-danger">Удалить</button></a>
                     </td>
