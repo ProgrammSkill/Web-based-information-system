@@ -13,7 +13,7 @@
         <hr style="border-top:1px dotted #ccc;"/>
         <h1 class="page-header">Улицы</h1>
           <p>
-            <button type="button" class="btn btn-primary js-create-street">
+            <button type="button" class="btn btn-primary js-create">
               <span class="glyphicon glyphicon-plus"></span>
               + Новая улица
             </button>
@@ -30,10 +30,10 @@
                 <tr class="record">
                     <td>{{s.street}}</td>
                     <td style="width: 150px">
-                        <a class="btn_delete_record btn-outline-danger" href=""><button class="btn btn-outline-danger">Удалить</button></a>
+                        <a class="btn_delete_record btn-outline-danger" href="{% url 'delete_street' s.id %}"><button class="btn btn-outline-danger">Удалить</button></a>
                     </td>
                     <td>
-                        <a class="BthEditModel btn-outline-primary" href=""><button class="btn btn-outline-primary">Редактировать</button></a>
+                        <a class="BthEditStreet btn-outline-primary" href="{% url 'edit_street' s.id %}"><button class="btn btn-outline-primary">Редактировать</button></a>
                     </td>
                 </tr>
                 {% empty %}
@@ -46,5 +46,50 @@
     </div>
 </div>
 
+
+<div id="ModalCreateStreet" class="modal modal-create">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Создание улицы</h5>
+            <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="formCreateStreet" method="post" action="{% url 'create_street' %}">
+            <div class="form-group validate">
+                {% csrf_token %}
+                <input value="" type="text" name="street" class="form-control" placeholder="Введите наименование улицы">
+                <small class="text-red text-muted mySpan"></small>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary btnSaveStreet">Сохранить</button>
+            </div>
+         </form>
+    </div>
+    </div>
+</div>
+
+
+<div id="ModalEditStreet" class="modal">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Редактирование улицы</h5>
+            <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="formEditStreet" method="post" action="">
+            <div class="form-group validate">
+                {% csrf_token %}
+                <input type="text" name="street" class="form-control" placeholder="Введите наименование улицы">
+                <small class="text-red text-muted mySpan"></small>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary btnUpdateStreet">Обновить</button>
+            </div>
+         </form>
+    </div>
+    </div>
+</div>
+
+<div class="overlay" id="overlay-modal"></div>
 
 {% endblock %}

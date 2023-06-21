@@ -3,6 +3,12 @@ var overlay = document.querySelector('#overlay-modal');
 
 var old_value_mark;
 
+$(".js-create").on("click", function(e){
+    overlay.classList.add('active');
+    $(".modal-create").css('display','block');
+    return false;
+});
+
 $("#table tbody").on("click", ".BthEditMark", function(e){
     e.preventDefault();
     var $this = $(this);
@@ -54,12 +60,6 @@ $("#formEditMark").on("submit", function(e){
             }
         });
     }
-    return false;
-});
-
-$(".js-create-mark").on("click", function(e){
-    overlay.classList.add('active');
-    $("#ModalCreateMark").css('display','block');
     return false;
 });
 
@@ -148,19 +148,6 @@ $("#table tbody").on("click", ".BthEditModel", function(e){
     return false;
 });
 
-$(".js-create-model").on("click", function(e){
-    overlay.classList.add('active');
-    $("#ModalCreateModel").css('display','block');
-    return false;
-});
-
-
-$(".close").on("click", function(e){
-    $("#ModalEditModel").css('display','none');
-    $("#ModalCreateModel").css('display','none');
-    overlay.classList.remove('active');
-});
-
 $("#formEditModel").on("submit", function(e){
     e.preventDefault();
     e.stopPropagation();
@@ -199,16 +186,8 @@ $("#formEditModel").on("submit", function(e){
 
 //======================================================================================================================
 
-$(".js-create-city").on("click", function(e){
-    overlay.classList.add('active');
-    $("#ModalCreateCity").css('display','block');
-    return false;
-});
-
 var old_value_brand;
 var old_value_model;
-//var old_id_model;
-
 
 //var old_value_brand;
 $("#table tbody").on("click", ".BthEditBrandAndModel", function(e){
@@ -298,6 +277,54 @@ $("#formEditCity").on("submit", function(e){
                 overlay.classList.remove('active');
                 let new_value_city = $("#formEditCity input[name='city']").val();
                 old_value_city.replaceWith('<td>'+new_value_city+'</td>');
+            },
+            error: function(resp){
+                alert("Что-то пошло не так при редактировании");
+            }
+        });
+    }
+    return false;
+});
+
+//======================================================================================================================
+var old_value_street;
+$("#table tbody").on("click", ".BthEditStreet", function(e){
+    e.preventDefault();
+    var $this = $(this);
+    let name_street = $this.parents(".record").find('td').eq(0).text();
+    old_value_street =  $this.parents(".record").find('td').eq(0);
+    $("#formEditStreet input[name='street']").val(name_street);
+    $("#formEditStreet").attr("action", $this.attr("href"));
+    overlay.classList.add('active');
+    $("#ModalEditStreet").css('display','block');
+    return false;
+});
+
+$("#formEditStreet").on("submit", function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var $this = $(this);
+    var valid = true;
+    $('#formEditStreet input').each(function() {
+        let $this = $(this);
+
+        if(!$this.val()) {
+            valid = false;
+            $this.parents('.validate').find('.mySpan').text('Поле пустое');
+        }
+    });
+    if(valid){
+        let data = $this.serialize();
+        $.ajax({
+            url: $this.attr("action"),
+            type: "POST",
+            data: data,
+            dataType: "json",
+            success: function(resp){
+                $("#ModalEditStreet").css('display','none');
+                overlay.classList.remove('active');
+                let new_value_street = $("#formEditStreet input[name='street']").val();
+                old_value_street.replaceWith('<td>'+new_value_street+'</td>');
             },
             error: function(resp){
                 alert("Что-то пошло не так при редактировании");

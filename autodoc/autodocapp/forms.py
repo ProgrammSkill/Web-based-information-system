@@ -41,3 +41,9 @@ class CityForm(ModelForm):
     class Meta:
         model = Cities
         fields = ['city']
+
+class StreetForm(ModelForm):
+    class Meta:
+        model = Streets
+        fields = ['street']
+
