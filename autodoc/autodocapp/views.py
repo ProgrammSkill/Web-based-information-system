@@ -1,7 +1,8 @@
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.models import Group, Permission, User
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
@@ -9,26 +10,19 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, CreateView, ListView
 from . import models
-import sqlite3
 from django.contrib.auth import logout
 from autodocapp.forms import *
-from  .models import *
+from .models import *
 # from django.http import JsonResponse
 
-conn = sqlite3.connect(r'D:\Веб-информационная система\autodoc\db.sqlite3', check_same_thread=False)
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
-
 def CheckRole(request):
-    id = request.user.id
-    cursor = conn.cursor()
-    id_autodocapp_customuser = \
-    cursor.execute("SELECT group_id FROM  autodocapp_customuser_groups WHERE customuser_id=" + str(id)).fetchall()[0][0]
-    role = cursor.execute("SELECT name FROM  auth_group WHERE id=" + str(id_autodocapp_customuser)).fetchall()[0][0]
+    user = request.user
+    role = str(user.groups.all()[0])
     return role
-
 
 class index(TemplateView):
     # Checking on authorization in system
@@ -39,7 +33,6 @@ class index(TemplateView):
 
         else:
             return redirect('authorization')
-
 
 
 class Authorization(LoginView):
@@ -112,14 +105,6 @@ class edit_mark(View):
 class MarkCreateView(View):
     form_class = MarkForm
 
-    # def post(self, request,  *args, **kwargs):
-    #     if is_ajax(request=request):
-    #         form = self.form_class(request.POST)
-    #         if form.is_valid():
-    #             form.save()
-    #             return JsonResponse({'message': 'Удачно'})
-    #         return JsonResponse({'message': 'Поля пустые'})
-
     def post(self, request,  *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
@@ -188,14 +173,6 @@ class edit_model(View):
 
 class ModelCreateView(View):
     form_class = ModelForm
-
-    # def post(self, request,  *args, **kwargs):
-    #     if is_ajax(request=request):
-    #         form = self.form_class(request.POST)
-    #         if form.is_valid():
-    #             form.save()
-    #             return JsonResponse({'message': 'Удачно'})
-    #         return JsonResponse({'message': 'Поля пустые'})
 
     def post(self, request,  *args, **kwargs):
         form = self.form_class(request.POST)

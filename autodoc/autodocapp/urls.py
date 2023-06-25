@@ -7,7 +7,6 @@ from django.contrib.auth.views import LogoutView
 
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
     path('', index.as_view(), name='home'), #Main menu
     path('authorization/', Authorization.as_view(), name='authorization'),
     path('authorization/', LogoutView.as_view(), {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
@@ -36,5 +35,4 @@ urlpatterns = [
     path('create_street/', StreetCreateView.as_view(), name='create_street'),
     path('edit_street/<int:street_id>', edit_street.as_view(), name='edit_street'),
     # path("logout/", LogoutView.as_view(), name="logout"),
-
 ]

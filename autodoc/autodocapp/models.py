@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
-    surname = models.CharField(max_length = 30, verbose_name = 'Фамилия')
+    surname = models.CharField(max_length=30, verbose_name='Фамилия')
     last_name = models.CharField(max_length=30, verbose_name='Отчество')
     birth_date = models.DateField(verbose_name='Дата рождения', null=True)
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name='Фотография')
@@ -18,7 +18,7 @@ class Brands (models.Model):
         return f'autodocapp/marks.html'
 
 class Models (models.Model):
-    model = models.CharField(max_length=50, verbose_name = 'Модель марки')
+    model = models.CharField(max_length=50, verbose_name='Модель марки')
 
     def __str__(self):
         return self.model
