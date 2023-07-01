@@ -1,8 +1,13 @@
 from django.urls import path
 
 from autodoc import settings
-from .views import *
-from django.contrib import admin
+from .views.manager.brand_and_models import Print_brand_and_models, BrandAndModelCreateView, BrandAndModelEditView, \
+    delete_brand_and_model
+from .views.manager.cities import CityCreate, edit_city, delete_city, SearchCity, PrintCities
+from .views.manager.streets import SearchStreet, PrintStreets, delete_street, StreetCreateView, edit_street
+from .views.manager.models import PrintModels, delete_model, edit_model, ModelCreateView, SearchModel
+from .views.manager.brands import Marks, MarkCreateView, delete_mark, edit_mark, SearchMark
+from .views.views import *
 from django.contrib.auth.views import LogoutView
 
 
@@ -34,5 +39,5 @@ urlpatterns = [
     path('delete_street/<int:street_id>/', delete_street.as_view(), name='delete_street'),
     path('create_street/', StreetCreateView.as_view(), name='create_street'),
     path('edit_street/<int:street_id>', edit_street.as_view(), name='edit_street'),
-    # path("logout/", LogoutView.as_view(), name="logout"),
+    path("logout/", LogoutView.as_view(), name="logout"),
 ]
