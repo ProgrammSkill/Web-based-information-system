@@ -333,3 +333,52 @@ $("#formEditStreet").on("submit", function(e){
     }
     return false;
 });
+
+//==========================================================================================================================
+
+var old_value_manufacturer;
+$("#table tbody").on("click", ".BthEditManufacturer", function(e){
+    e.preventDefault();
+    var $this = $(this);
+    let name_manufacturer = $this.parents(".record").find('td').eq(0).text();
+    old_value_manufacturer =  $this.parents(".record").find('td').eq(0);
+    $("#formEditManufacturer input[name='manufacturer']").val(name_manufacturer);
+    $("#formEditManufacturer").attr("action", $this.attr("href"));
+    overlay.classList.add('active');
+    $("#ModalEditManufacturer").css('display','block');
+    return false;
+});
+
+$("#formEditManufacturer").on("submit", function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var $this = $(this);
+    var valid = true;
+    $('#formEditManufacturer input').each(function() {
+        let $this = $(this);
+
+        if(!$this.val()) {
+            valid = false;
+            $this.parents('.validate').find('.mySpan').text('Поле пустое');
+        }
+    });
+    if(valid){
+        let data = $this.serialize();
+        $.ajax({
+            url: $this.attr("action"),
+            type: "POST",
+            data: data,
+            dataType: "json",
+            success: function(resp){
+                $("#ModalEditManufacturer").css('display','none');
+                overlay.classList.remove('active');
+                let new_value_manufacturer = $("#formEditManufacturer input[name='manufacturer']").val();
+                old_value_manufacturer.replaceWith('<td>'+new_value_manufacturer+'</td>');
+            },
+            error: function(resp){
+                alert("Что-то пошло не так при редактировании");
+            }
+        });
+    }
+    return false;
+});

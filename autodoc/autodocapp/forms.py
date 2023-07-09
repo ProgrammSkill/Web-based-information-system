@@ -47,3 +47,8 @@ class StreetForm(ModelForm):
         model = Streets
         fields = ['street']
 
+class ManufactureForm(ModelForm):
+    class Meta:
+        model = Manufacturers
+        fields = ['manufacturer']
+
