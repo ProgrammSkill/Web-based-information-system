@@ -1,0 +1,93 @@
+{% extends 'autodocapp/base.html' %}
+{% block content %}
+
+<div class="">
+    <form class="form-inline my-2 my-lg-0" action="{% url 'search_manufacturer' %}" method="get">
+        <input class="search" type="search" placeholder="Поиск" aria-label="Поиск" name="q">
+        <button class="btn btn-outline-success my-2 my-sm" type="submit">Поиск</button>
+    </form>
+</div>
+
+<div class="container">
+    <div class="col-md-12 well">
+        <hr style="border-top:1px dotted #ccc;"/>
+        <h1 class="page-header">Производители</h1>
+          <p>
+            <button type="button" class="btn btn-primary js-create">
+              <span class="glyphicon glyphicon-plus"></span>
+              + Новый производитель
+            </button>
+         </p>
+
+        <table class="table table-borderless table-hover" id="table">
+            <thead>
+              <tr>
+                <th scope="col">Наименование</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for m in mufacturers %}
+                <tr class="record">
+                    <td>{{m.manufacturer}}</td>
+                    <td style="width: 150px">
+                        <a class="btn_delete_record btn-outline-danger" href="{% url 'delete_manufacturer' m.id %}"><button class="btn btn-outline-danger">Удалить</button></a>
+                    </td>
+                    <td>
+                        <a class="BthEditManufacturer btn-outline-primary" href="{% url 'edit_manufacturer' m.id %}"><button class="btn btn-outline-primary">Редактировать</button></a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">Нет производителей</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="ModalCreateManufacturer" class="modal modal-create">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Создание модели</h5>
+            <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="formCreateManufacturer" method="post" action="{% url 'create_manufacturer' %}">
+            <div class="form-group validate">
+                {% csrf_token %}
+                <input value="" type="text" name="manufacturer" class="form-control" placeholder="Введите наименование производителя">
+                <small class="text-red text-muted mySpan"></small>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary btnSaveManufacturer">Сохранить</button>
+            </div>
+         </form>
+    </div>
+    </div>
+</div>
+
+<div id="ModalEditManufacturer" class="modal">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Редактирование разработчика</h5>
+            <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="formEditManufacturer" method="post" action="">
+            <div class="form-group validate">
+                {% csrf_token %}
+                <input type="text" name="manufacturer" class="form-control" placeholder="Введите наименование разработчика">
+                <small class="text-red text-muted mySpan"></small>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary btnUpdateManufacturer">Обновить</button>
+            </div>
+         </form>
+    </div>
+    </div>
+</div>
+
+<div class="overlay" id="overlay-modal"></div>
+
+{% endblock %}
