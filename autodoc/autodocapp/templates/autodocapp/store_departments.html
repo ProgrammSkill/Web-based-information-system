@@ -1,0 +1,151 @@
+{% extends 'autodocapp/base.html' %}
+{% block content %}
+
+<!--<div class="">-->
+<!--    <form class="form-inline my-2 my-lg-0" action="{% url 'search_street' %}" method="get">-->
+<!--        <input class="search" type="search" placeholder="Поиск" aria-label="Поиск" name="q">-->
+<!--        <button class="btn btn-outline-success my-2 my-sm" type="submit">Поиск</button>-->
+<!--    </form>-->
+<!--</div>-->
+
+<div class="container">
+    <div class="col-md-12 well">
+        <hr style="border-top:1px dotted #ccc;"/>
+        <h1 class="page-header">Магазины</h1>
+          <p>
+            <button type="button" class="btn btn-primary js-create">
+              <span class="glyphicon glyphicon-plus"></span>
+              + Новый магазин
+            </button>
+         </p>
+
+        <table class="table table-borderless table-hover" id="table">
+            <thead>
+              <tr>
+                <th scope="col">Город</th>
+                <th scope="col">Улица</th>
+                <th scope="col">Дом</th>
+                <th scope="col">Телефон</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for s in shops %}
+                <tr class="record">
+
+                    {% for c in cities %}
+                        {% if s.id_city == c %}
+                            <td id="{{ c.id }}">{{s.id_city}}</td>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% for street in streets %}
+                        {% if s.id_street == street %}
+                    <td id="{{ street.id }}">{{s.id_street}}</td>
+                        {% endif %}
+                    {% endfor %}
+
+                    <td>{{s.house}}</td>
+                    <td>{{s.telephone}}</td>
+                    <td style="width: 150px">
+                        <a class="btn_delete_record btn-outline-danger" href="{% url 'delete_store_departments' s.id %}"><button class="btn btn-outline-danger">Удалить</button></a>
+                    </td>
+                    <td>
+                        <a class="BthEditShop btn-outline-primary" href="{% url 'edit_store_department' s.id %}"><button class="btn btn-outline-primary">Редактировать</button></a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">Нет магазинов</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div id="ModalCreateShop" class="modal modal-create">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Создание магазина</h5>
+            <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="formCreateShop" method="post" action="{% url 'create_store_departments' %}">
+            <div class="form-group validate">
+                {% csrf_token %}
+                <select name="id_city" class="form-select mb-3" aria-label=".form-select-lg example">
+                    <option selected>Выберите город</option>
+                    {% for c in cities %}
+                        <option value='{{ c.id }}'>{{ c }}</option>
+                    {% endfor %}
+                </select>
+                <small class="text-red text-muted mySpan"></small>
+                <select name="id_street" class="form-select mb-3" aria-label=".form-select-lg example">
+                    <option selected>Выберите улицу</option>
+                    {% for s in streets %}
+                        <option value='{{ s.id }}'>{{ s }}</option>
+                    {% endfor %}
+                </select>
+                <small class="text-red text-muted mySpan"></small>
+
+                <input value="" type="text" name="house" class="form-control mb-3" placeholder="Введите номер дома">
+                <small class="text-red text-muted mySpan"></small>
+
+                <input value="" type="tel" name="telephone" class="form-control mb-3" placeholder="Введите номер телефона">
+                <small class="text-red text-muted mySpan"></small>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary btnSaveShop">Сохранить</button>
+            </div>
+         </form>
+    </div>
+    </div>
+</div>
+
+
+<div id="ModalEditShop" class="modal">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Редактирование магазина</h5>
+            <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form id="formEditShop" method="post" action="">
+            <div class="form-group validate">
+                {% csrf_token %}
+                <select name="id_city" class="form-select mb-3" aria-label=".form-select-lg example">
+                    <option selected>Выберите город</option>
+                    {% for c in cities %}
+                        <option value='{{ c.id }}'>{{ c }}</option>
+                    {% endfor %}
+                </select>
+                <small class="text-red text-muted mySpan"></small>
+                <select name="id_street" class="form-select mb-3" aria-label=".form-select-lg example">
+                    <option selected>Выберите улицу</option>
+                    {% for s in streets %}
+                        <option value='{{ s.id }}'>{{ s }}</option>
+                    {% endfor %}
+                </select>
+                <small class="text-red text-muted mySpan"></small>
+
+                <input type="text" name="house" class="form-control mb-3" placeholder="Введите номер дома">
+                <small class="text-red text-muted mySpan"></small>
+
+                <input type="tel" name="telephone" class="form-control mb-3" placeholder="Введите номер телефона">
+                <small class="text-red text-muted mySpan"></small>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary btnUpdateModel">Обновить</button>
+            </div>
+        </form>
+
+    </div>
+    </div>
+</div>
+
+
+<div class="overlay" id="overlay-modal"></div>
+
+{% endblock %}
