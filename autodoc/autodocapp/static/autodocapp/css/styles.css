@@ -90,7 +90,7 @@
 /* Стили для модальных окон */
 
 .modal {
-    display: none;
+    display: inline-block;
 
     width: 100%;
     max-width: 500px;
@@ -102,6 +102,8 @@
     z-index: 30;
     left: 0;
     top: 0;
+
+    vertical-align: middle;
 
     overflow: auto;
      /*  Установаем ширину окна  */

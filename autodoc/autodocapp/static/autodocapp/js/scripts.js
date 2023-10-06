@@ -195,7 +195,6 @@ $("#table tbody").on("click", ".BthEditBrandAndModel", function(e){
     var $this = $(this);
     let id_brand = $this.parents(".record").find('td').eq(0).attr('id');
     old_value_brand =  $this.parents(".record").find('td').eq(0);
-//    alert(old_value_brand);
     let id_model = $this.parents(".record").find('td').eq(1).attr('id');
     old_value_model =  $this.parents(".record").find('td').eq(1);
     $("#formEditBrandAndModel select[name='id_brand']").val(id_brand);
@@ -382,3 +381,131 @@ $("#formEditManufacturer").on("submit", function(e){
     }
     return false;
 });
+
+
+//================================================================================================================================================================
+
+var old_value_street;
+var old_value_city;
+var old_value_house;
+var old_value_telephone;
+
+$("#table tbody").on("click", ".BthEditShop", function(e){
+    e.preventDefault();
+    var $this = $(this);
+
+    let id_city = $this.parents(".record").find('td').eq(0).attr('id');
+    old_value_city = $this.parents(".record").find('td').eq(0);
+
+    let id_street = $this.parents(".record").find('td').eq(1).attr('id');
+    old_value_street = $this.parents(".record").find('td').eq(1);
+
+    let house = $this.parents(".record").find('td').eq(2).text();
+    old_value_house =  $this.parents(".record").find('td').eq(2);
+
+    let telephone = $this.parents(".record").find('td').eq(3).text();
+    old_value_telephone =  $this.parents(".record").find('td').eq(3);
+
+    $("#formEditShop select[name='id_city']").val(id_city);
+    $("#formEditShop select[name='id_street']").val(id_street);
+    $("#formEditShop input[name='house']").val(house);
+    $("#formEditShop input[name='telephone']").val(telephone);
+
+    $("#formEditShop").attr("action", $this.attr("href"));
+    overlay.classList.add('active');
+    $("#ModalEditShop").css('display','block');
+    return false;
+});
+
+$("#formEditShop").on("submit", function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var $this = $(this);
+    let data = $this.serialize();
+    $.ajax({
+        url: $this.attr("action"),
+        type: "POST",
+        data: data,
+        dataType: "json",
+        success: function(resp){
+            $("#ModalEditShop").css('display','none');
+            overlay.classList.remove('active');
+
+            let new_value_id_city = $("#formEditShop select[name='id_city']").val();
+            let new_value_id_street = $("#formEditShop select[name='id_street']").val();
+            let new_value_house = $("#formEditShop input[name='house']").val();
+            let new_value_telephone = $("#formEditShop input[name='telephone']").val();
+
+
+            let new_text_city = $("#formEditShop select[name='id_city'] option[value='" + new_value_id_city+"']").text();
+
+            let new_text_street = $("#formEditShop select[name='id_street'] option[value='" + new_value_id_street+"']").text();
+
+
+            old_value_city.replaceWith('<td id='+new_value_id_city+'>' + new_text_city + '</td>');
+            old_value_street.replaceWith('<td id='+new_value_id_street+'>' + new_text_street  + '</td>');
+            old_value_house.replaceWith('<td>'+new_value_house+'</td>');
+            old_value_telephone.replaceWith('<td>'+new_value_telephone+'</td>');
+
+
+
+        },
+        error: function(resp){
+            alert("Что-то пошло не так при редактировании");
+        }
+    });
+
+    return false;
+});
+
+
+//var old_value_brand;
+//var old_value_model;
+//
+////var old_value_brand;
+//$("#table tbody").on("click", ".BthEditBrandAndModel", function(e){
+//    e.preventDefault();
+//    var $this = $(this);
+//    let id_brand = $this.parents(".record").find('td').eq(0).attr('id');
+//    old_value_brand =  $this.parents(".record").find('td').eq(0);
+//    let id_model = $this.parents(".record").find('td').eq(1).attr('id');
+//    old_value_model =  $this.parents(".record").find('td').eq(1);
+//    $("#formEditBrandAndModel select[name='id_brand']").val(id_brand);
+//    $("#formEditBrandAndModel select[name='id_model']").val(id_model);
+//    $("#formEditBrandAndModel").attr("action", $this.attr("href"));
+//    overlay.classList.add('active');
+//    $("#ModalEditBrandAndModel").css('display','block');
+//    return false;
+//});
+//
+//
+//$("#formEditBrandAndModel").on("submit", function(e){
+//    e.preventDefault();
+//    e.stopPropagation();
+//    var $this = $(this);
+//    let data = $this.serialize();
+//    $.ajax({
+//        url: $this.attr("action"),
+//        type: "POST",
+//        data: data,
+//        dataType: "json",
+//        success: function(resp){
+//            $("#ModalEditBrandAndModel").css('display','none');
+//            overlay.classList.remove('active');
+//            let new_value_id_brand = $("#formEditBrandAndModel select[name='id_brand']").val();
+//            let new_value_id_model = $("#formEditBrandAndModel select[name='id_model']").val();
+//
+//            let new_text_brand = $("#formEditBrandAndModel select[name='id_brand'] option[value='"+new_value_id_brand+"']").text();
+//
+//            let new_text_model = $("#formEditBrandAndModel select[name='id_model'] option[value='"+new_value_id_model+"']").text();
+//
+//            old_value_brand.replaceWith('<td id='+new_value_id_brand+'>' + new_text_brand + '</td>');
+//            old_value_model.replaceWith('<td id='+new_value_id_model+'>' + new_text_model  + '</td>');
+//        },
+//        error: function(resp){
+//            alert("Что-то пошло не так при редактировании");
+//        }
+//    });
+//
+//    return false;
+//});

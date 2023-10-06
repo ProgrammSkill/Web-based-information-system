@@ -1,8 +1,7 @@
 from django.urls import path
 
-from autodoc import settings
-from django.contrib.auth.views import LogoutView
-
+from ..views.manager.store_departments import PrintStoreDepartments, StoreDepartmentsCreateView, DeleteStoreDepartment, \
+    StoreDepartmentEditView
 from ..views.manager.brand_and_models import Print_brand_and_models, BrandAndModelCreateView, BrandAndModelEditView, \
     delete_brand_and_model
 from ..views.manager.brands import Marks, MarkCreateView, delete_mark, edit_mark, SearchMark
@@ -42,4 +41,10 @@ urlpatterns = [
     path('manufacturers/delete_manufacturer/<int:manufacturer_id>/', delete_manufacturer.as_view(), name='delete_manufacturer'),
     path('create_manufacturer/', ManufacturerCreateView.as_view(), name='create_manufacturer'),
     path('edit_manufacturer/<int:manufacturer_id>', edit_manufacturer.as_view(), name='edit_manufacturer'),
+    path('create_store_departments/', StoreDepartmentsCreateView.as_view(), name='create_store_departments'),
+    path('edit_store_department/<int:store_department_id>/', StoreDepartmentEditView.as_view(),
+         name='edit_store_department'),
+    path('store_departments/delete_store_departments/<int:store_departments_id>/', DeleteStoreDepartment.as_view(), name='delete_store_departments'),
+    path('store_departments/', PrintStoreDepartments, name='store_departments'),
+
 ]

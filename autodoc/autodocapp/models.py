@@ -35,9 +35,15 @@ class BrandsAndModels (models.Model):
 class Cities (models.Model):
     city = models.CharField(max_length=50, verbose_name='Город')
 
+    def __str__(self):
+        return self.city
+
 
 class Streets (models.Model):
     street = models.CharField(max_length=50, verbose_name='Улица')
+
+    def __str__(self):
+        return self.street
 
 
 class Manufacturers (models.Model):
@@ -49,6 +55,9 @@ class StoreDepartments (models.Model):
     id_street = models.ForeignKey('Streets', on_delete=models.PROTECT, verbose_name='Улица')
     house = models.CharField(max_length=10, verbose_name = 'Дом')
     telephone = models.CharField(max_length=20, verbose_name = 'Телефон')
+
+    def __str__(self):
+        return (self.id_city.city, self.id_street.street)
 
 
 class AutoParts (models.Model):
@@ -62,11 +71,9 @@ class AutoParts (models.Model):
 
 class AutoPartsInStock (models.Model):
     id_StoreDepartment = models.ForeignKey('StoreDepartments', on_delete=models.PROTECT, verbose_name='Магазин')
-    id_StoreDepartment = models.ForeignKey('AutoParts', on_delete=models.PROTECT, verbose_name='Автозапчасть')
-    name = models.CharField(max_length=20, verbose_name='Наименование')
-    id_brand_and_models = models.ForeignKey('BrandsAndModels', on_delete=models.PROTECT, verbose_name='Автомобиль')
-    id_manufacturer = models.ForeignKey('Manufacturers', on_delete=models.PROTECT, verbose_name='Производитель')
-    comment = models.TextField(verbose_name='Комментарий')
+    id_AutoParts = models.ForeignKey('AutoParts', on_delete=models.PROTECT, verbose_name='Автозапчасть')
+    price = models.FloatField(verbose_name="Цена")
+    amount = models.IntegerField(verbose_name="Количество")
 
 
 class Suppliers (models.Model):
