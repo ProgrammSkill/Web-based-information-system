@@ -79,19 +79,13 @@ class BrandAndModelEditView(View):
             return JsonResponse({'message4': 'Неверный запрос'})
 
 
-class SearchManufacturer(ListView):
-    template_name = 'autodocapp/cities.html'
-    context_object_name = 'Manufacturers'
-
+class SearchBrandsModelsByBrand(ListView):
     def get(self, request):
         if request.user.is_authenticated:
             role = CheckRole(request)
             brands = Brands.objects.all()
             models = Models.objects.all()
-            try:
-                brand_and_models = BrandsAndModels.objects.filter(id_brand_iexact=self.request.GET.get('q'))
-            except:
-                brand_and_models = BrandsAndModels.objects.all()
+            brand_and_models = BrandsAndModels.objects.filter(id_brand=self.request.GET.get('q'))
 
             context = {
                 'role': role,
@@ -104,24 +98,3 @@ class SearchManufacturer(ListView):
             return render(request, 'autodocapp/brands_and_models.html', context)
         else:
             return redirect('authorization')
-
-
-def Print_brand_and_models(request):
-    # Checking on authorization in system
-    if request.user.is_authenticated:
-        role = CheckRole(request)
-        brands = Brands.objects.all()
-        models = Models.objects.all()
-        brand_and_models = BrandsAndModels.objects.all()
-
-        context = {
-            'role': role,
-            'title': 'Связи между марками и моделями',
-            'brands': brands,
-            'models': models,
-            'brand_and_models': brand_and_models
-        }
-
-        return render(request, 'autodocapp/brands_and_models.html', context)
-    else:
-        return redirect('authorization')

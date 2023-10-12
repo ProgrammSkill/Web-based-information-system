@@ -1,14 +1,14 @@
 from django.urls import path
 
-from ..views.manager.store_departments import PrintStoreDepartments, StoreDepartmentsCreateView, DeleteStoreDepartment, \
-    StoreDepartmentEditView
 from ..views.manager.brand_and_models import Print_brand_and_models, BrandAndModelCreateView, BrandAndModelEditView, \
-    delete_brand_and_model
+    delete_brand_and_model, SearchBrandsModelsByBrand
 from ..views.manager.brands import Marks, MarkCreateView, delete_mark, edit_mark, SearchMark
 from ..views.manager.cities import CityCreate, edit_city, delete_city, SearchCity, PrintCities
 from ..views.manager.manufacturers import SearchManufacturer, PrintManufacturers, delete_manufacturer, \
     ManufacturerCreateView, edit_manufacturer
 from ..views.manager.models import PrintModels, delete_model, edit_model, ModelCreateView, SearchModel
+from ..views.manager.store_departments import PrintStoreDepartments, StoreDepartmentsCreateView, DeleteStoreDepartment, \
+    StoreDepartmentEditView
 from ..views.manager.streets import SearchStreet, PrintStreets, delete_street, StreetCreateView, edit_street
 
 urlpatterns = [
@@ -22,10 +22,14 @@ urlpatterns = [
     path('edit_model/<int:model_id>', edit_model.as_view(), name='edit_model'),
     path('create_model/', ModelCreateView.as_view(), name='create_model'),
     path('models/search_model/', SearchModel.as_view(), name='search_model'),
+    path('brands_and_models/search_brand/', SearchBrandsModelsByBrand.as_view(),
+         name='search_brands_and_models_by_brand'),
     path('brands_and_models/', Print_brand_and_models, name='brands_and_models'),
     path('create_brand_and_model/', BrandAndModelCreateView.as_view(), name='create_brand_and_model'),
-    path('edit_brand_and_model/<int:brand_and_model_id>/', BrandAndModelEditView.as_view(), name='edit_brand_and_model'),
-    path('brands_and_models/delete_brand_and_model/<int:brand_and_model_id>/', delete_brand_and_model.as_view(), name='delete_brand_and_model'),
+    path('edit_brand_and_model/<int:brand_and_model_id>/', BrandAndModelEditView.as_view(),
+         name='edit_brand_and_model'),
+    path('brands_and_models/delete_brand_and_model/<int:brand_and_model_id>/', delete_brand_and_model.as_view(),
+         name='delete_brand_and_model'),
     path('cities/create_city/', CityCreate.as_view(), name='create_city'),
     path('edit_city/<int:city_id>', edit_city.as_view(), name='edit_city'),
     path('cities/delete_city/<int:city_id>/', delete_city.as_view(), name='delete_city'),
