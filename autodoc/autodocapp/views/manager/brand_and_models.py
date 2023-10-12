@@ -1,8 +1,10 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views import View
 from django.views.generic import ListView
+
 from ..views import *
+
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
@@ -75,3 +77,51 @@ class BrandAndModelEditView(View):
 
         else:
             return JsonResponse({'message4': 'Неверный запрос'})
+
+
+class SearchManufacturer(ListView):
+    template_name = 'autodocapp/cities.html'
+    context_object_name = 'Manufacturers'
+
+    def get(self, request):
+        if request.user.is_authenticated:
+            role = CheckRole(request)
+            brands = Brands.objects.all()
+            models = Models.objects.all()
+            try:
+                brand_and_models = BrandsAndModels.objects.filter(id_brand_iexact=self.request.GET.get('q'))
+            except:
+                brand_and_models = BrandsAndModels.objects.all()
+
+            context = {
+                'role': role,
+                'title': 'Связи между марками и моделями',
+                'brands': brands,
+                'models': models,
+                'brand_and_models': brand_and_models
+            }
+
+            return render(request, 'autodocapp/brands_and_models.html', context)
+        else:
+            return redirect('authorization')
+
+
+def Print_brand_and_models(request):
+    # Checking on authorization in system
+    if request.user.is_authenticated:
+        role = CheckRole(request)
+        brands = Brands.objects.all()
+        models = Models.objects.all()
+        brand_and_models = BrandsAndModels.objects.all()
+
+        context = {
+            'role': role,
+            'title': 'Связи между марками и моделями',
+            'brands': brands,
+            'models': models,
+            'brand_and_models': brand_and_models
+        }
+
+        return render(request, 'autodocapp/brands_and_models.html', context)
+    else:
+        return redirect('authorization')

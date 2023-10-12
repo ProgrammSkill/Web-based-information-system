@@ -1,8 +1,9 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views import View
-from django.views.generic import ListView
+
 from ..views import *
+
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
@@ -64,16 +65,6 @@ class StoreDepartmentEditView(View):
 
         else:
             return JsonResponse({'message4': 'Неверный запрос'})
-#
-
-# class SearchStoreDepartments(ListView):
-#     def get(self, request):
-#         if request.user.is_authenticated:
-#             role = CheckRole(request)
-#             models = Models.objects.filter(model__icontains=self.request.GET.get('q'))
-#             return render(request, 'autodocapp/store_departments.html', {'role': role, 'title': 'Модели', 'models': models})
-#         else:
-#             return redirect('authorization')
 
 
 class StoreDepartmentsCreateView(View):
