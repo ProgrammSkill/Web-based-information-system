@@ -1,6 +1,17 @@
 {% extends 'autodocapp/base.html' %}
 {% block content %}
 
+<div class="">
+    <form action="" class="form-inline my-2 my-lg-0" method="get">
+        <select aria-label=".form-select-lg example" class="form-select mb-3 search" name="q">\
+            <option selected>Выберите город</option>
+            {% for c in cities %}
+            <option value='{{ c.id }}'>{{ b }}</option>
+            {% endfor %}
+        </select>
+        <button class="btn btn-outline-success my-2 my-sm" type="submit">Поиск</button>
+    </form>
+</div>
 
 <div class="container">
     <div class="col-md-12 well">

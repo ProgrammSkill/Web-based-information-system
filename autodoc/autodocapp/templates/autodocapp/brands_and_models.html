@@ -2,10 +2,10 @@
 {% block content %}
 
 <div class="">
-    <form action="" class="form-inline my-2 my-lg-0" method="get">
-        <select aria-label=".form-select-lg example" class="form-select mb-3 search" name="q">
-            {% for b in brands %}
+    <form action="{% url 'search_brands_and_models_by_brand' %}" class="form-inline my-2 my-lg-0" method="get">
+        <select aria-label=".form-select-lg example" class="form-select mb-3 search" name="q">\
             <option selected>Выберите марку</option>
+            {% for b in brands %}
             <option value='{{ b.id }}'>{{ b }}</option>
             {% endfor %}
         </select>
