@@ -1,0 +1,56 @@
+{% extends 'autodocapp/base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="col-md-12 well">
+        <hr style="border-top:1px dotted #ccc;"/>
+        <h1 class="page-header">Поставщики</h1>
+        <p>
+            <button class="btn btn-primary js-create" type="button">
+                <span class="glyphicon glyphicon-plus"></span>
+                + Новый поставщик
+            </button>
+        </p>
+
+        <table class="table table-borderless table-hover" id="table">
+            <thead>
+            <tr>
+                <th scope="col">Наименование</th>
+                <th scope="col">ИНН</th>
+                <th scope="col">КПП</th>
+                <th scope="col">ФИО руководителя</th>
+                <th scope="col">Телефон</th>
+                <th scope="col">Эл почта</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for s in suppliers %}
+            <tr class="record">
+                <td>{{s.title}}</td>
+                <td>{{s.INN}}</td>
+                <td>{{s.CIO}}</td>
+                <td>{{s.FullNameManager}}</td>
+                <td>{{s.telephone}}</td>
+                <td>{{s.email}}</td>
+                <td style="width: 150px">
+                    <a class="btn_delete_record btn-outline-danger" href="">
+                        <button class="btn btn-outline-danger">Удалить</button>
+                    </a>
+                </td>
+                <td>
+                    <a class="BthEditStreet btn-outline-primary" href="">
+                        <button class="btn btn-outline-primary">Редактировать</button>
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td class="text-center" colspan="8">Нет поставщиков</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
