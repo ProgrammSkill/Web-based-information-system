@@ -85,7 +85,11 @@ class SearchBrandsModelsByBrand(ListView):
             role = CheckRole(request)
             brands = Brands.objects.all()
             models = Models.objects.all()
-            brand_and_models = BrandsAndModels.objects.filter(id_brand=self.request.GET.get('q'))
+
+            try:
+                brand_and_models = BrandsAndModels.objects.filter(id_brand=self.request.GET.get('q'))
+            except:
+                brand_and_models = BrandsAndModels.objects.all()
 
             context = {
                 'role': role,

@@ -1,12 +1,14 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views import View
+from django.views.generic import ListView
 
 from ..views import *
 
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
 
 def PrintStoreDepartments(request):
     # Checking on authorization in system
@@ -23,7 +25,6 @@ def PrintStoreDepartments(request):
             'streets': streets,
             'shops': shops
         }
-
 
         return render(request, 'autodocapp/store_departments.html', context)
     else:
@@ -69,7 +70,8 @@ class StoreDepartmentEditView(View):
 
 class StoreDepartmentsCreateView(View):
     form_class = StoreDepartmentsForm
-    def post(self, request,  *args, **kwargs):
+
+    def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
@@ -83,3 +85,28 @@ class DeleteStoreDepartment(View):
             shop.delete()
             return JsonResponse({"message": "Success"})
         return JsonResponse({"message": "Wrong request"})
+
+
+class SearchStoreDepartmentsByCity(ListView):
+    def get(self, request):
+        if request.user.is_authenticated:
+            role = CheckRole(request)
+            cities = Cities.objects.all()
+            streets = Streets.objects.all()
+
+            try:
+                shops = StoreDepartments.objects.filter(id_city=self.request.GET.get('q'))
+            except:
+                shops = StoreDepartments.objects.all()
+
+            context = {
+                'role': role,
+                'title': 'Список магазинов',
+                'cities': cities,
+                'streets': streets,
+                'shops': shops
+            }
+
+            return render(request, 'autodocapp/store_departments.html', context)
+        else:
+            return redirect('authorization')

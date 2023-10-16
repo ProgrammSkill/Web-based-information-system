@@ -2,11 +2,11 @@
 {% block content %}
 
 <div class="">
-    <form action="" class="form-inline my-2 my-lg-0" method="get">
+    <form action="{% url 'search_store_departments_by_city' %}" class="form-inline my-2 my-lg-0" method="get">
         <select aria-label=".form-select-lg example" class="form-select mb-3 search" name="q">\
             <option selected>Выберите город</option>
             {% for c in cities %}
-            <option value='{{ c.id }}'>{{ b }}</option>
+            <option value='{{ c.id }}'>{{ c }}</option>
             {% endfor %}
         </select>
         <button class="btn btn-outline-success my-2 my-sm" type="submit">Поиск</button>

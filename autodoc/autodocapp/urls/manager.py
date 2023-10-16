@@ -8,7 +8,7 @@ from ..views.manager.manufacturers import SearchManufacturer, PrintManufacturers
     ManufacturerCreateView, edit_manufacturer
 from ..views.manager.models import PrintModels, delete_model, edit_model, ModelCreateView, SearchModel
 from ..views.manager.store_departments import PrintStoreDepartments, StoreDepartmentsCreateView, DeleteStoreDepartment, \
-    StoreDepartmentEditView
+    StoreDepartmentEditView, SearchStoreDepartmentsByCity
 from ..views.manager.streets import SearchStreet, PrintStreets, delete_street, StreetCreateView, edit_street
 
 urlpatterns = [
@@ -42,13 +42,17 @@ urlpatterns = [
     path('edit_street/<int:street_id>', edit_street.as_view(), name='edit_street'),
     path('manufacturers/search_manufacturer/', SearchManufacturer.as_view(), name='search_manufacturer'),
     path('manufacturers/', PrintManufacturers, name='manufacturers'),
-    path('manufacturers/delete_manufacturer/<int:manufacturer_id>/', delete_manufacturer.as_view(), name='delete_manufacturer'),
+    path('manufacturers/delete_manufacturer/<int:manufacturer_id>/', delete_manufacturer.as_view(),
+         name='delete_manufacturer'),
     path('create_manufacturer/', ManufacturerCreateView.as_view(), name='create_manufacturer'),
     path('edit_manufacturer/<int:manufacturer_id>', edit_manufacturer.as_view(), name='edit_manufacturer'),
     path('create_store_departments/', StoreDepartmentsCreateView.as_view(), name='create_store_departments'),
     path('edit_store_department/<int:store_department_id>/', StoreDepartmentEditView.as_view(),
          name='edit_store_department'),
-    path('store_departments/delete_store_departments/<int:store_departments_id>/', DeleteStoreDepartment.as_view(), name='delete_store_departments'),
+    path('store_departments/delete_store_departments/<int:store_departments_id>/', DeleteStoreDepartment.as_view(),
+         name='delete_store_departments'),
+    path('store_departments/search_by_city/', SearchStoreDepartmentsByCity.as_view(),
+         name='search_store_departments_by_city'),
     path('store_departments/', PrintStoreDepartments, name='store_departments'),
 
 ]
