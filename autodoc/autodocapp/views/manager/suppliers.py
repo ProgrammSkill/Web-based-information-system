@@ -14,3 +14,13 @@ def PrintSuppliers(request):
                       {'role': role, 'title': 'Поставщики', 'suppliers': suppliers})
     else:
         return redirect('authorization')
+
+
+def SearchSupplier(request):
+    if request.user.is_authenticated:
+        role = CheckRole(request)
+        suppliers = Suppliers.objects.filter(title__icontains=request.GET.get('q'))
+        return render(request, 'autodocapp/suppliers.html',
+                      {'role': role, 'title': 'Поставщики', 'suppliers': suppliers})
+    else:
+        return redirect('authorization')

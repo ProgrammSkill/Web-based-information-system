@@ -1,6 +1,13 @@
 {% extends 'autodocapp/base.html' %}
 {% block content %}
 
+<div class="">
+    <form action="{% url 'search_supplier' %}" class="form-inline my-2 my-lg-0" method="get">
+        <input aria-label="Поиск" class="search" name="q" placeholder="Поиск" type="search">
+        <button class="btn btn-outline-success my-2 my-sm" type="submit">Поиск</button>
+    </form>
+</div>
+
 <div class="container">
     <div class="col-md-12 well">
         <hr style="border-top:1px dotted #ccc;"/>
