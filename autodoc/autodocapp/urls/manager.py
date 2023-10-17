@@ -10,6 +10,7 @@ from ..views.manager.models import PrintModels, delete_model, edit_model, ModelC
 from ..views.manager.store_departments import PrintStoreDepartments, StoreDepartmentsCreateView, DeleteStoreDepartment, \
     StoreDepartmentEditView, SearchStoreDepartmentsByCity
 from ..views.manager.streets import SearchStreet, PrintStreets, delete_street, StreetCreateView, edit_street
+from ..views.manager.suppliers import PrintSuppliers, SearchSupplier
 
 urlpatterns = [
     path('marks/', Marks, name='marks'),
@@ -54,5 +55,6 @@ urlpatterns = [
     path('store_departments/search_by_city/', SearchStoreDepartmentsByCity.as_view(),
          name='search_store_departments_by_city'),
     path('store_departments/', PrintStoreDepartments, name='store_departments'),
-
+    path('suppliers/search/', SearchSupplier, name='search_supplier'),
+    path('suppliers/', PrintSuppliers, name='suppliers'),
 ]

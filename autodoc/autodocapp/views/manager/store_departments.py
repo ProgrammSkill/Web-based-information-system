@@ -82,6 +82,7 @@ class DeleteStoreDepartment(View):
     def get(self, request, store_departments_id, *args, **kwargs):
         if is_ajax(request=request):
             shop = get_object_or_404(StoreDepartments, id=store_departments_id)
+            print(store_departments_id)
             shop.delete()
             return JsonResponse({"message": "Success"})
         return JsonResponse({"message": "Wrong request"})

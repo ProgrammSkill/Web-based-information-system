@@ -1,8 +1,10 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views import View
 from django.views.generic import ListView
+
 from ..views import *
+
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
@@ -33,7 +35,6 @@ class delete_model(View):
     def get(self, request, model_id, *args, **kwargs):
         if is_ajax(request=request):
             model = get_object_or_404(Models, id=model_id)
-            # mark = Brands.objects.get()
             model.delete()
             return JsonResponse({"message": "Success"})
         return JsonResponse({"message": "Wrong request"})
