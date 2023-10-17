@@ -69,7 +69,7 @@
                 <button aria-label="Close" class="close btn-close" data-bs-dismiss="modal" type="button"></button>
             </div>
 
-            <form action="{% url 'create_brand_and_model' %}" id="formCreateSuppliers" method="post">
+            <form action="{% url 'create_supplier' %}" id="formCreateSuppliers" method="post">
                 <div class="form-group validate">
                     {% csrf_token %}
                     <input class="form-control mb-3" name="title" placeholder="Наименование поставщика" type="text">
