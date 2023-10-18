@@ -45,7 +45,7 @@
                     </a>
                 </td>
                 <td>
-                    <a class="BthEditStreet btn-outline-primary" href="">
+                    <a class="BthEditSupplier btn-outline-primary" href="">
                         <button class="btn btn-outline-primary">Редактировать</button>
                     </a>
                 </td>
@@ -61,7 +61,7 @@
 </div>
 
 
-<div class="modal modal-create" id="ModalCreateSuppliers">
+<div class="modal modal-create" id="ModalCreateSupplier">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -92,7 +92,44 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-primary btnSaveSuppliers" type="submit">Сохранить</button>
+                    <button class="btn btn-primary btnSaveSupplier" type="submit">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="ModalEditSupplier">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Редактирование улицы</h5>
+                <button aria-label="Close" class="close btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <form action="" id="formEditSupplier" method="post">
+                <div class="form-group validate">
+                    {% csrf_token %}
+                    <input class="form-control mb-3" name="title" placeholder="Наименование поставщика" type="text">
+                    <small class="text-red text-muted mySpan"></small>
+
+                    <input class="form-control mb-3" name="INN" placeholder="ИНН" type="text">
+                    <small class="text-red text-muted mySpan"></small>
+
+                    <input class="form-control mb-3" name="CIO" placeholder="КПП" type="text">
+                    <small class="text-red text-muted mySpan"></small>
+
+                    <input class="form-control mb-3" name="FullNameManager" placeholder="ФИО руководителя" type="text">
+                    <small class="text-red text-muted mySpan"></small>
+
+                    <input class="form-control mb-3" name="telephone" placeholder="Телефон" type="text">
+                    <small class="text-red text-muted mySpan"></small>
+
+                    <input class="form-control mb-3" name="email" placeholder="Эл почта" type="text">
+                    <small class="text-red text-muted mySpan"></small>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary btnUpdateSupplier" type="submit">Обновить</button>
                 </div>
             </form>
         </div>

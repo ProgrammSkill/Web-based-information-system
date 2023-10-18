@@ -56,6 +56,7 @@ class StoreDepartmentsForm(ModelForm):
         model = StoreDepartments
         fields = '__all__'
 
+
 class SuppliersForm(ModelForm):
     class Meta:
         model = Suppliers
