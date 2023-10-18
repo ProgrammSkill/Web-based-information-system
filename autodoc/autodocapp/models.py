@@ -1,5 +1,6 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db import models
+
 
 class CustomUser(AbstractUser):
     surname = models.CharField(max_length=30, verbose_name='Фамилия')
@@ -8,7 +9,7 @@ class CustomUser(AbstractUser):
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name='Фотография')
 
 
-class Brands (models.Model):
+class Brands(models.Model):
     brand = models.CharField(max_length=50, verbose_name='Марка автозапчасти')
 
     def __str__(self):
@@ -84,6 +85,13 @@ class Suppliers (models.Model):
     telephone = models.CharField (max_length=20, verbose_name='Телефон')
     email = models.CharField (max_length=30, verbose_name='Эл почта')
 
+
+class Supply(models.Model):
+    id_supplier = models.ForeignKey('Suppliers', on_delete=models.PROTECT, verbose_name='Поставщик')
+    id_AutoParts = models.ForeignKey('AutoParts', on_delete=models.PROTECT, verbose_name='Автозапчасть')
+    purchase_price = models.FloatField(verbose_name='Цена закупки')
+    quantity = models.IntegerField(verbose_name='Количество')
+    delivery_date = models.DateField(verbose_name='Дата поступления')
 
 class Sales (models.Model):
     id_suppliers = models.ForeignKey('StoreDepartments', on_delete=models.PROTECT, verbose_name='Отдел магазина')

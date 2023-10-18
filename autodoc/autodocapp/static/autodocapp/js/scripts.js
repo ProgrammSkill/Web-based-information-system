@@ -1,7 +1,6 @@
 
 var overlay = document.querySelector('#overlay-modal');
 
-var old_value_mark;
 
 $(".js-create").on("click", function(e){
     overlay.classList.add('active');
@@ -9,6 +8,12 @@ $(".js-create").on("click", function(e){
     return false;
 });
 
+$(".close").on("click", function(e){
+    $(".modal").css('display','none');
+    overlay.classList.remove('active');
+});
+
+var old_value_mark;
 $("#table tbody").on("click", ".BthEditMark", function(e){
     e.preventDefault();
     var $this = $(this);
@@ -20,13 +25,6 @@ $("#table tbody").on("click", ".BthEditMark", function(e){
     $("#ModalEditMark").css('display','block');
     return false;
 });
-
-$(".close").on("click", function(e){
-    $(".modal").css('display','none');
-    overlay.classList.remove('active');
-});
-
-
 
 $("#formEditMark").on("submit", function(e){
     e.preventDefault();
@@ -455,5 +453,102 @@ $("#formEditShop").on("submit", function(e){
         }
     });
 
+    return false;
+});
+
+//================================================================================================================================================================
+
+var old_value_title;
+var old_value_INN;
+var old_value_CIO;
+var old_value_FullNameManager;
+var old_value_telephone;
+var old_value_email;
+
+
+$("#table tbody").on("click", ".BthEditSupplier", function(e){
+    e.preventDefault();
+    var $this = $(this);
+
+    let title = $this.parents(".record").find('td').eq(0).text();
+    old_value_title =  $this.parents(".record").find('td').eq(0);
+
+    let INN = $this.parents(".record").find('td').eq(1).text();
+    old_value_INN =  $this.parents(".record").find('td').eq(1);
+
+    let CIO = $this.parents(".record").find('td').eq(2).text();
+    old_value_CIO =  $this.parents(".record").find('td').eq(2);
+
+    let FullNameManager = $this.parents(".record").find('td').eq(3).text();
+    old_value_FullNameManager =  $this.parents(".record").find('td').eq(3);
+
+    let telephone = $this.parents(".record").find('td').eq(4).text();
+    old_value_telephone =  $this.parents(".record").find('td').eq(4);
+
+    let email = $this.parents(".record").find('td').eq(5).text();
+    old_value_email =  $this.parents(".record").find('td').eq(5);
+
+    $("#formEditSupplier input[name='title']").val(title);
+    $("#formEditSupplier input[name='INN']").val(INN);
+    $("#formEditSupplier input[name='CIO']").val(CIO);
+    $("#formEditSupplier input[name='FullNameManager']").val(FullNameManager);
+    $("#formEditSupplier input[name='telephone']").val(telephone);
+    $("#formEditSupplier input[name='email']").val(email);
+
+    $("#formEditSupplier").attr("action", $this.attr("href"));
+    overlay.classList.add('active');
+    $("#ModalEditSupplier").css('display','block');
+    return false;
+});
+
+
+$("#formEditSupplier").on("submit", function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var $this = $(this);
+    var valid = true;
+    $('#formEditSupplier input').each(function() {
+        let $this = $(this);
+
+        if(!$this.val()) {
+            valid = false;
+            $this.parents('.validate').find('.mySpan').text('Поле пустое');
+        }
+    });
+
+    if(valid){
+        let data = $this.serialize();
+        $.ajax({
+            url: $this.attr("action"),
+            type: "POST",
+            data: data,
+            dataType: "json",
+            success: function(resp){
+                $("#ModalEditSupplier").css('display','none');
+                overlay.classList.remove('active');
+
+                let new_value_title = $("#formEditSupplier input[name='title']").val();
+                old_value_title.replaceWith('<td>' + new_value_title + '</td>');
+
+                let new_value_INN = $("#formEditSupplier input[name='INN']").val();
+                old_value_INN.replaceWith('<td>' + new_value_INN + '</td>');
+
+                let new_value_CIO = $("#formEditSupplier input[name='CIO']").val();
+                old_value_CIO.replaceWith('<td>' + new_value_CIO + '</td>');
+
+                let new_value_FullNameManager = $("#formEditSupplier input[name='FullNameManager']").val();
+                old_value_FullNameManager.replaceWith('<td>' + new_value_FullNameManager + '</td>');
+
+                let new_value_telephone = $("#formEditSupplier input[name='telephone']").val();
+                old_value_telephone.replaceWith('<td>' + new_value_telephone + '</td>');
+
+                let new_value_email = $("#formEditSupplier input[name='email']").val();
+                old_value_email.replaceWith('<td>' + new_value_email + '</td>');
+            },
+            error: function(resp){
+                alert("Что-то пошло не так при редактировании");
+            }
+        });
+    }
     return false;
 });
