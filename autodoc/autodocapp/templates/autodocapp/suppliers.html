@@ -40,7 +40,7 @@
                 <td>{{s.telephone}}</td>
                 <td>{{s.email}}</td>
                 <td style="width: 150px">
-                    <a class="btn_delete_record btn-outline-danger" href="">
+                    <a class="btn_delete_record btn-outline-danger" href="{% url 'delete_supplier' s.id %}">
                         <button class="btn btn-outline-danger">Удалить</button>
                     </a>
                 </td>
