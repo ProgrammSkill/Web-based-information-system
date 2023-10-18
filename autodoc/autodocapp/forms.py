@@ -51,6 +51,7 @@ class ManufactureForm(ModelForm):
         model = Manufacturers
         fields = ['manufacturer']
 
+
 class StoreDepartmentsForm(ModelForm):
     class Meta:
         model = StoreDepartments

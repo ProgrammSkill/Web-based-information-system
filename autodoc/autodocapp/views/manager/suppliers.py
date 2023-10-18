@@ -47,3 +47,46 @@ class delete_supplier(View):
             supplier.delete()
             return JsonResponse({"message": "success"})
         return JsonResponse({"message": "Wrong request"})
+
+
+class edit_supplier(View):
+    form_class = SuppliersForm
+
+    def post(self, request, supplier_id, *args, **kwargs):
+        if is_ajax(request=request):
+            supplier = get_object_or_404(Suppliers, id=supplier_id)
+            data = {
+                "title": supplier.title,
+                "INN": supplier.INN,
+                "CIO": supplier.CIO,
+                "FullNameManager": supplier.FullNameManager,
+                "telephone": supplier.telephone,
+                "email": supplier.email
+            }
+
+            form = self.form_class(request.POST, initial=data)
+            if form.is_valid():
+                title = form.cleaned_data['title']
+                INN = form.cleaned_data['INN']
+                CIO = form.cleaned_data['CIO']
+                FullNameManager = form.cleaned_data['FullNameManager']
+                telephone = form.cleaned_data['telephone']
+                email = form.cleaned_data['email']
+
+                if form.has_changed():
+                    supplier.title = title
+                    supplier.INN = INN
+                    supplier.CIO = CIO
+                    supplier.FullNameManager = FullNameManager
+                    supplier.telephone = telephone
+                    supplier.email = email
+                    supplier.save()
+                    return JsonResponse({'message': 'Success'})
+                else:
+                    return JsonResponse({'message': 'Данные не редактируются'})
+
+            else:
+                return JsonResponse({'message': 'Данные пустые'})
+
+        else:
+            return JsonResponse({'message': 'Неверный запрос'})
