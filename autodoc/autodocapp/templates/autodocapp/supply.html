@@ -1,0 +1,69 @@
+{% extends 'autodocapp/base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="col-md-12 well">
+        <hr style="border-top:1px dotted #ccc;"/>
+        <h1 class="page-header">Поставки</h1>
+        <p>
+            <button class="btn btn-primary js-create" type="button">
+                <span class="glyphicon glyphicon-plus"></span>
+                + Новая поставка
+            </button>
+        </p>
+
+        <table class="table table-borderless table-hover" id="table">
+            <thead>
+            <tr>
+                <th scope="col">Поставщик</th>
+                <th scope="col">Автозапчасть</th>
+                <th scope="col">Цена закупки</th>
+                <th scope="col">Количество</th>
+                <th scope="col">Дата поступления</th>
+                <th scope="col">Статус</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for s in supply %}
+            <tr class="record">
+
+                {% for supplier in suppliers %}
+                {% if s.id_supplier == supplier %}
+                <td id="{{ supplier.id }}">{{s.id_supplier}}</td>
+                {% endif %}
+                {% endfor %}
+
+                {% for a in autoParts %}
+                {% if s.id_AutoParts == a %}
+                <td id="{{ a.id }}">{{s.id_AutoParts}}</td>
+                {% endif %}
+                {% endfor %}
+
+                <td>{{s.purchase_price}}</td>
+                <td>{{s.quantity}}</td>
+                <td>{{s.delivery_date|date:"d.m.Y"}}</td>
+                <td>{{s.status}}</td>
+                <td style="width: 150px">
+                    <a class="btn_delete_record btn-outline-danger" href="">
+                        <button class="btn btn-outline-danger">Удалить</button>
+                    </a>
+                </td>
+                <td>
+                    <a class="BthEditSupply btn-outline-primary" href="">
+                        <button class="btn btn-outline-primary">Редактировать</button>
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td class="text-center" colspan="8">Нет поставок</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="overlay" id="overlay-modal"></div>
+
+{% endblock %}

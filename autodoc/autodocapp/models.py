@@ -66,9 +66,11 @@ class AutoParts (models.Model):
     name = models.CharField(max_length=20, verbose_name='Наименование')
     id_brand_and_models = models.ForeignKey('BrandsAndModels', on_delete=models.PROTECT, verbose_name='Автомобиль')
     id_manufacturer = models.ForeignKey('Manufacturers', on_delete=models.PROTECT, verbose_name='Производитель')
-    photo = models.ImageField(upload_to="photos/%Y/%m/%d/")
+    photo = models.ImageField(upload_to="photos/%Y/%m/%d/", null=True)
     comment = models.TextField(verbose_name='Комментарий')
 
+    def __str__(self):
+        return self.name
 
 class AutoPartsInStock (models.Model):
     id_StoreDepartment = models.ForeignKey('StoreDepartments', on_delete=models.PROTECT, verbose_name='Магазин')
@@ -77,13 +79,25 @@ class AutoPartsInStock (models.Model):
     amount = models.IntegerField(verbose_name="Количество")
 
 
-class Suppliers (models.Model):
-    title = models.CharField (max_length=30, verbose_name='Наименование организации')
-    INN = models.IntegerField (verbose_name='ИНН')
-    CIO = models.IntegerField (verbose_name='КПП')
-    FullNameManager = models.CharField (max_length=150, verbose_name = 'ФИО руководителя')
-    telephone = models.CharField (max_length=20, verbose_name='Телефон')
-    email = models.CharField (max_length=30, verbose_name='Эл почта')
+class Suppliers(models.Model):
+    title = models.CharField(max_length=30, verbose_name='Наименование организации')
+    INN = models.IntegerField(verbose_name='ИНН')
+    CIO = models.IntegerField(verbose_name='КПП')
+    FullNameManager = models.CharField(max_length=150, verbose_name='ФИО руководителя')
+    telephone = models.CharField(max_length=20, verbose_name='Телефон')
+    email = models.CharField(max_length=30, verbose_name='Эл почта')
+
+    def __str__(self):
+        return self.title
+
+
+TYPE = (
+    ("accepted_processing", "Принят в обработку"),
+    ("completed", "Комплектуется"),
+    ("sent", "Отправлен"),
+    ("on_way", "В пути"),
+    ("delivered", "Доставлен")
+)
 
 
 class Supply(models.Model):
@@ -91,9 +105,11 @@ class Supply(models.Model):
     id_AutoParts = models.ForeignKey('AutoParts', on_delete=models.PROTECT, verbose_name='Автозапчасть')
     purchase_price = models.FloatField(verbose_name='Цена закупки')
     quantity = models.IntegerField(verbose_name='Количество')
-    delivery_date = models.DateField(verbose_name='Дата поступления')
+    delivery_date = models.DateTimeField(verbose_name='Дата поступления')
+    status = models.CharField(max_length=30, choices=TYPE)
 
-class Sales (models.Model):
+
+class Sales(models.Model):
     id_suppliers = models.ForeignKey('StoreDepartments', on_delete=models.PROTECT, verbose_name='Отдел магазина')
     id_autoParts = models.ForeignKey('AutoParts', on_delete=models.PROTECT, verbose_name='Автозапчасть')
     count = models.IntegerField(verbose_name='Количество')

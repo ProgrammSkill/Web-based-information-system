@@ -11,6 +11,7 @@ from ..views.manager.store_departments import PrintStoreDepartments, StoreDepart
     StoreDepartmentEditView, SearchStoreDepartmentsByCity
 from ..views.manager.streets import SearchStreet, PrintStreets, delete_street, StreetCreateView, edit_street
 from ..views.manager.suppliers import PrintSuppliers, SearchSupplier, SupplierCreateView, delete_supplier, edit_supplier
+from ..views.manager.supply import PrintSupply
 
 urlpatterns = [
     path('marks/', Marks, name='marks'),
@@ -60,4 +61,5 @@ urlpatterns = [
     path('suppliers/create', SupplierCreateView.as_view(), name='create_supplier'),
     path('suppliers/search/', SearchSupplier, name='search_supplier'),
     path('suppliers/', PrintSuppliers, name='suppliers'),
+    path('supply/', PrintSupply, name='supply'),
 ]
