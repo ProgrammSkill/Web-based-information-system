@@ -1,3 +1,7 @@
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.views import View
+
 from ..views import *
 
 
@@ -48,3 +52,12 @@ def SearchSupplyByAutoPart(request):
         return render(request, 'autodocapp/supply.html', context)
     else:
         return redirect('authorization')
+
+
+class delete_supply(View):
+    def get(self, request, supply_id, *args, **kwargs):
+        if is_ajax(request=request):
+            supply = get_object_or_404(Supply, id=supply_id)
+            supply.delete()
+            return JsonResponse({"message": "success"})
+        return JsonResponse({"message": "Wrong request"})

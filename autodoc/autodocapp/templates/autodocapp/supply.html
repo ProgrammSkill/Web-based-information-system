@@ -56,7 +56,7 @@
                 <td>{{s.delivery_date|date:"d.m.Y"}}</td>
                 <td>{{s.status}}</td>
                 <td style="width: 150px">
-                    <a class="btn_delete_record btn-outline-danger" href="">
+                    <a class="btn_delete_record btn-outline-danger" href="{% url 'delete_supply' s.id %}">
                         <button class="btn btn-outline-danger">Удалить</button>
                     </a>
                 </td>
