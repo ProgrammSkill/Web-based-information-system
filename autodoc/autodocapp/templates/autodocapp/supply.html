@@ -1,6 +1,18 @@
 {% extends 'autodocapp/base.html' %}
 {% block content %}
 
+<div class="">
+    <form action="{% url 'search_supply_by_autoPart' %}" class="form-inline my-2 my-lg-0" method="get">
+        <select aria-label=".form-select-lg example" class="form-select mb-3 search" name="q">
+            <option selected>Выберите автозапчасть</option>
+            {% for autoPart in autoParts %}
+            <option value='{{ autoPart.id }}'>{{ autoPart }}</option>
+            {% endfor %}
+        </select>
+        <button class="btn btn-outline-success my-2 my-sm" type="submit">Поиск</button>
+    </form>
+</div>
+
 <div class="container">
     <div class="col-md-12 well">
         <hr style="border-top:1px dotted #ccc;"/>

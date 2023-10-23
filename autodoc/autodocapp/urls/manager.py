@@ -11,7 +11,7 @@ from ..views.manager.store_departments import PrintStoreDepartments, StoreDepart
     StoreDepartmentEditView, SearchStoreDepartmentsByCity
 from ..views.manager.streets import SearchStreet, PrintStreets, delete_street, StreetCreateView, edit_street
 from ..views.manager.suppliers import PrintSuppliers, SearchSupplier, SupplierCreateView, delete_supplier, edit_supplier
-from ..views.manager.supply import PrintSupply
+from ..views.manager.supply import PrintSupply, SearchSupplyByAutoPart
 
 urlpatterns = [
     path('marks/', Marks, name='marks'),
@@ -19,7 +19,7 @@ urlpatterns = [
     path('marks/delete_mark/<int:mark_id>/', delete_mark.as_view(), name='delete_mark'),
     path('edit_mark/<int:mark_id>', edit_mark.as_view(), name='edit_mark'),
     path('marks/search_mark/', SearchMark.as_view(), name='search_mark'),
-    path('models/', PrintModels, name='models'),  # модели
+    path('models/', PrintModels, name='models'),
     path('models/delete_model/<int:model_id>/', delete_model.as_view(), name='delete_model'),
     path('edit_model/<int:model_id>', edit_model.as_view(), name='edit_model'),
     path('create_model/', ModelCreateView.as_view(), name='create_model'),
@@ -61,5 +61,6 @@ urlpatterns = [
     path('suppliers/create', SupplierCreateView.as_view(), name='create_supplier'),
     path('suppliers/search/', SearchSupplier, name='search_supplier'),
     path('suppliers/', PrintSuppliers, name='suppliers'),
+    path('supply/search_by_autoPart/', SearchSupplyByAutoPart, name='search_supply_by_autoPart'),
     path('supply/', PrintSupply, name='supply'),
 ]
