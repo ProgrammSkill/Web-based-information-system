@@ -3,9 +3,9 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View
 from django.views.generic import ListView
 
-from forms import MarkForm
-from models import Brands
 from .. import CheckRole
+from ...forms import MarkForm
+from ...models import Brands
 
 
 def is_ajax(request):

@@ -2,9 +2,9 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View
 
-from forms import SuppliersForm
-from models import *
 from .. import CheckRole
+from ...forms import SuppliersForm
+from ...models import *
 
 
 def is_ajax(request):
