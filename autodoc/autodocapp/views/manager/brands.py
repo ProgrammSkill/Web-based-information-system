@@ -1,13 +1,16 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View
 from django.views.generic import ListView
 
-from ..views import *
+from forms import MarkForm
+from models import Brands
+from .. import CheckRole
 
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
 
 def Marks(request):
     # Checking on authorization in system
@@ -72,7 +75,7 @@ class edit_mark(View):
 class MarkCreateView(View):
     form_class = MarkForm
 
-    def post(self, request,  *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()

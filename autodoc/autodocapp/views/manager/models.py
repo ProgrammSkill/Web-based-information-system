@@ -1,13 +1,16 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View
 from django.views.generic import ListView
 
-from ..views import *
+from forms import ModelForm
+from models import *
+from .. import CheckRole
 
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
 
 def PrintModels(request):
     # Checking on authorization in system

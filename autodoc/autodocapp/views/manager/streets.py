@@ -1,13 +1,15 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from django.views.generic import ListView
 
-from ..views import *
+from models import *
+from .. import CheckRole
 
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
 
 def PrintStreets(request):
     if request.user.is_authenticated:  # Checking on authorization in system

@@ -1,8 +1,9 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 
-from ..views import *
+from models import *
+from .. import CheckRole
 
 
 def is_ajax(request):
@@ -61,3 +62,29 @@ class delete_supply(View):
             supply.delete()
             return JsonResponse({"message": "success"})
         return JsonResponse({"message": "Wrong request"})
+
+
+class SupplyCreateView(View):
+    # form_class = SupplyForm
+
+    # def post(self, request):
+    #     form = self.form_class(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #     return redirect('supply')
+    def post(self, request):
+        id_supplier = request.POST.get('id_supplier')
+        id_auto_parts = request.POST.get('id_AutoParts')
+        purchase_price = request.POST.get('purchase_price')
+        quantity = request.POST.get('quantity')
+        delivery_date = request.POST.get('delivery_date')
+        status = request.POST.get('status')
+        print(delivery_date)
+
+        supplier = Suppliers.objects.get(id=id_supplier)
+        autoPart = AutoParts.objects.get(id=id_auto_parts)
+
+        supply = Supply(id_supplier=supplier, id_AutoParts=autoPart, purchase_price=purchase_price, quantity=quantity,
+                        delivery_date=delivery_date, status=status)
+        supply.save()
+        return redirect('supply')

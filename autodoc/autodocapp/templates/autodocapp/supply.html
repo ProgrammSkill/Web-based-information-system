@@ -76,6 +76,60 @@
     </div>
 </div>
 
+
+<div class="modal modal-create" id="ModalCreateSupply">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Создание поставки</h5>
+                <button aria-label="Close" class="close btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+
+            <form action="{% url 'create_supply' %}" id="formCreateSupply" method="post">
+                <div class="form-group validate">
+                    {% csrf_token %}
+                    <select aria-label=".form-select-lg example" class="form-select mb-3" name="id_supplier" required>
+                        <option selected>Выберите поставщика</option>
+                        {% for supplier in suppliers %}
+                        <option value='{{ supplier.id }}'>{{ supplier }}</option>
+                        {% endfor %}
+                    </select>
+                    <small class="text-red text-muted mySpan"></small>
+
+                    <select aria-label=".form-select-lg example" class="form-select mb-3" name="id_AutoParts" required>
+                        <option selected>Выберите автозапчасть</option>
+                        {% for autoPart in autoParts %}
+                        <option value='{{ autoPart.id }}'>{{ autoPart }}</option>
+                        {% endfor %}
+                    </select>
+                    <small class="text-red text-muted mySpan"></small>
+
+                    <input class="form-control mb-3" name="purchase_price" placeholder="Цена закупки" required
+                           type="number">
+                    <small class="text-red text-muted mySpan"></small>
+
+                    <input class="form-control mb-3" name="quantity" placeholder="Количество" required type="number">
+                    <small class="text-red text-muted mySpan"></small>
+
+                    <input class="form-control mb-3" name="delivery_date" required type="date">
+                    <small class="text-red text-muted mySpan"></small>
+
+                    <select class="form-select mb-3" name="status" required>
+                        <option value='Принят в обработку'>Принят в обработку</option>
+                        <option value='Комплектуется'>Комплектуется</option>
+                        <option value='Отправлен'>Отправлен</option>
+                        <option value='В пути<'>В пути</option>
+                        <option value='Доставлен'>Доставлен</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary btnSaveSupply" type="submit">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="overlay" id="overlay-modal"></div>
 
 {% endblock %}

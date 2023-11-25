@@ -54,16 +54,16 @@
             <h5 class="modal-title">Создание модели</h5>
             <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form id="formCreateModel" method="post" action="{% url 'create_model' %}">
+        <form action="{% url 'create_model' %}" class="needs-validation" id="formCreateModel" method="post">
             <div class="form-group validate">
                 {% csrf_token %}
-                <input value="" type="text" name="model" class="form-control" placeholder="Введите наименование модели">
-                <small class="text-red text-muted mySpan"></small>
+                <input class="form-control" name="model" placeholder="Наименование модели" required type="text">
+                <!--                <small class="text-red text-muted mySpan"></small>-->
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary btnSaveModel">Сохранить</button>
             </div>
-         </form>
+        </form>
     </div>
     </div>
 </div>
@@ -78,7 +78,7 @@
         <form id="formEditModel" method="post" action="">
             <div class="form-group validate">
                 {% csrf_token %}
-                <input type="text" name="model" class="form-control" placeholder="Введите наименование марки">
+                <input class="form-control" name="model" placeholder="Введите наименование марки" required type="text">
                 <small class="text-red text-muted mySpan"></small>
             </div>
             <div class="modal-footer">

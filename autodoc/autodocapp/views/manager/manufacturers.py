@@ -1,13 +1,16 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View
 from django.views.generic import ListView
 
-from ..views import *
+from forms import ManufactureForm
+from models import *
+from .. import CheckRole
 
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
 
 def PrintManufacturers(request):
     if request.user.is_authenticated:  # Checking on authorization in system
@@ -21,11 +24,12 @@ class SearchManufacturer(ListView):
     template_name = 'autodocapp/cities.html'
     context_object_name = 'Manufacturers'
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             role = CheckRole(request)
             manufacturer = Manufacturers.objects.filter(manufacturer__icontains=self.request.GET.get('q'))
-            return render(request, 'autodocapp/mufacturers.html', {'role': role, 'title': 'Производители', 'mufacturers': manufacturer})
+            return render(request, 'autodocapp/mufacturers.html',
+                          {'role': role, 'title': 'Производители', 'mufacturers': manufacturer})
         else:
             return redirect('authorization')
 

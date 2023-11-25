@@ -62,3 +62,9 @@ class SuppliersForm(ModelForm):
     class Meta:
         model = Suppliers
         fields = '__all__'
+
+
+class SupplyForm(ModelForm):
+    class Meta:
+        model = Supply
+        fields = '__all__'
