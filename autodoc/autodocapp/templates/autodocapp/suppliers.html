@@ -72,22 +72,24 @@
             <form action="{% url 'create_supplier' %}" id="formCreateSupplier" method="post">
                 <div class="form-group validate">
                     {% csrf_token %}
-                    <input class="form-control mb-3" name="title" placeholder="Наименование поставщика" type="text">
+                    <input class="form-control mb-3" name="title" placeholder="Наименование поставщика" required
+                           type="text">
                     <small class="text-red text-muted mySpan"></small>
 
-                    <input class="form-control mb-3" name="INN" placeholder="ИНН" type="text">
+                    <input class="form-control mb-3" name="INN" placeholder="ИНН" required type="text">
                     <small class="text-red text-muted mySpan"></small>
 
-                    <input class="form-control mb-3" name="CIO" placeholder="КПП" type="text">
+                    <input class="form-control mb-3" name="CIO" placeholder="КПП" required type="text">
                     <small class="text-red text-muted mySpan"></small>
 
-                    <input class="form-control mb-3" name="FullNameManager" placeholder="ФИО руководителя" type="text">
+                    <input class="form-control mb-3" name="FullNameManager" placeholder="ФИО руководителя" required
+                           type="text">
                     <small class="text-red text-muted mySpan"></small>
 
-                    <input class="form-control mb-3" name="telephone" placeholder="Телефон" type="text">
+                    <input class="form-control mb-3" name="telephone" placeholder="Телефон" required type="text">
                     <small class="text-red text-muted mySpan"></small>
 
-                    <input class="form-control mb-3" name="email" placeholder="Эл почта" type="text">
+                    <input class="form-control mb-3" name="email" placeholder="Эл почта" required type="text">
                     <small class="text-red text-muted mySpan"></small>
                 </div>
 
@@ -112,22 +114,24 @@
             <form action="" id="formEditSupplier" method="post">
                 <div class="form-group validate">
                     {% csrf_token %}
-                    <input class="form-control mb-3" name="title" placeholder="Наименование поставщика" type="text">
+                    <input class="form-control mb-3" name="title" placeholder="Наименование поставщика" required
+                           type="text">
                     <small class="text-red text-muted mySpan"></small>
 
-                    <input class="form-control mb-3" name="INN" placeholder="ИНН" type="text">
+                    <input class="form-control mb-3" name="INN" placeholder="ИНН" required type="text">
                     <small class="text-red text-muted mySpan"></small>
 
-                    <input class="form-control mb-3" name="CIO" placeholder="КПП" type="text">
+                    <input class="form-control mb-3" name="CIO" placeholder="КПП" required type="text">
                     <small class="text-red text-muted mySpan"></small>
 
-                    <input class="form-control mb-3" name="FullNameManager" placeholder="ФИО руководителя" type="text">
+                    <input class="form-control mb-3" name="FullNameManager" placeholder="ФИО руководителя" required
+                           type="text">
                     <small class="text-red text-muted mySpan"></small>
 
-                    <input class="form-control mb-3" name="telephone" placeholder="Телефон" type="text">
+                    <input class="form-control mb-3" name="telephone" placeholder="Телефон" required type="text">
                     <small class="text-red text-muted mySpan"></small>
 
-                    <input class="form-control mb-3" name="email" placeholder="Эл почта" type="text">
+                    <input class="form-control mb-3" name="email" placeholder="Эл почта" required type="text">
                     <small class="text-red text-muted mySpan"></small>
                 </div>
 

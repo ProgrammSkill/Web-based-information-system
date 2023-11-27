@@ -79,25 +79,27 @@
         <form id="formCreateShop" method="post" action="{% url 'create_store_departments' %}">
             <div class="form-group validate">
                 {% csrf_token %}
-                <select name="id_city" class="form-select mb-3" aria-label=".form-select-lg example">
+                <select aria-label=".form-select-lg example" class="form-select mb-3" name="id_city" required>
                     <option selected>Выберите город</option>
                     {% for c in cities %}
-                        <option value='{{ c.id }}'>{{ c }}</option>
+                    <option value='{{ c.id }}'>{{ c }}</option>
                     {% endfor %}
                 </select>
                 <small class="text-red text-muted mySpan"></small>
-                <select name="id_street" class="form-select mb-3" aria-label=".form-select-lg example">
+                <select aria-label=".form-select-lg example" class="form-select mb-3" name="id_street" required>
                     <option selected>Выберите улицу</option>
                     {% for s in streets %}
-                        <option value='{{ s.id }}'>{{ s }}</option>
+                    <option value='{{ s.id }}'>{{ s }}</option>
                     {% endfor %}
                 </select>
                 <small class="text-red text-muted mySpan"></small>
 
-                <input value="" type="text" name="house" class="form-control mb-3" placeholder="Введите номер дома">
+                <input class="form-control mb-3" name="house" placeholder="Введите номер дома" required type="text"
+                       value="">
                 <small class="text-red text-muted mySpan"></small>
 
-                <input value="" type="tel" name="telephone" class="form-control mb-3" placeholder="Введите номер телефона">
+                <input class="form-control mb-3" name="telephone" placeholder="Введите номер телефона" required
+                       type="tel" value="">
                 <small class="text-red text-muted mySpan"></small>
             </div>
             <div class="modal-footer">
@@ -120,25 +122,26 @@
         <form id="formEditShop" method="post" action="">
             <div class="form-group validate">
                 {% csrf_token %}
-                <select name="id_city" class="form-select mb-3" aria-label=".form-select-lg example">
+                <select aria-label=".form-select-lg example" class="form-select mb-3" name="id_city" required>
                     <option selected>Выберите город</option>
                     {% for c in cities %}
-                        <option value='{{ c.id }}'>{{ c }}</option>
+                    <option value='{{ c.id }}'>{{ c }}</option>
                     {% endfor %}
                 </select>
                 <small class="text-red text-muted mySpan"></small>
-                <select name="id_street" class="form-select mb-3" aria-label=".form-select-lg example">
+                <select aria-label=".form-select-lg example" class="form-select mb-3" name="id_street" required>
                     <option selected>Выберите улицу</option>
                     {% for s in streets %}
-                        <option value='{{ s.id }}'>{{ s }}</option>
+                    <option value='{{ s.id }}'>{{ s }}</option>
                     {% endfor %}
                 </select>
                 <small class="text-red text-muted mySpan"></small>
 
-                <input type="text" name="house" class="form-control mb-3" placeholder="Введите номер дома">
+                <input class="form-control mb-3" name="house" placeholder="Введите номер дома" required type="text">
                 <small class="text-red text-muted mySpan"></small>
 
-                <input type="tel" name="telephone" class="form-control mb-3" placeholder="Введите номер телефона">
+                <input class="form-control mb-3" name="telephone" placeholder="Введите номер телефона" required
+                       type="tel">
                 <small class="text-red text-muted mySpan"></small>
             </div>
             <div class="modal-footer">

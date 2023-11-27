@@ -57,7 +57,7 @@
         <form id="formEditMark" method="post" action="">
             <div class="form-group validate">
                 {% csrf_token %}
-                <input type="text" name="brand" class="form-control" placeholder="Введите наименование марки">
+                <input class="form-control" name="brand" placeholder="Введите наименование марки" required type="text">
                 <small class="text-red text-muted mySpan"></small>
             </div>
             <div class="modal-footer">
@@ -80,7 +80,8 @@
         <form id="formCreateMark" method="post" action="{% url 'create_mark' %}">
             <div class="form-group validate">
                 {% csrf_token %}
-                <input value="" type="text" name="brand" class="form-control" placeholder="Введите наименование марки">
+                <input class="form-control" name="brand" placeholder="Введите наименование марки" required type="text"
+                       value="">
                 <small class="text-red text-muted mySpan"></small>
             </div>
             <div class="modal-footer">

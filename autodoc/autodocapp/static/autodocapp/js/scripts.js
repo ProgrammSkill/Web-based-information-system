@@ -552,3 +552,102 @@ $("#formEditSupplier").on("submit", function(e){
     }
     return false;
 });
+
+//================================================================================================================================================================
+
+var old_value_supplier;
+var old_value_id_AutoParts;
+var old_value_purchase_price;
+var old_value_quantity;
+var old_value_delivery_date;
+var old_value_status;
+
+$("#table tbody").on("click", ".BthEditSupply", function(e){
+    e.preventDefault();
+    var $this = $(this);
+
+    let id_supplier = $this.parents(".record").find('td').eq(0).attr('id');
+    old_value_supplier = $this.parents(".record").find('td').eq(0);
+
+    let id_AutoParts = $this.parents(".record").find('td').eq(1).attr('id');
+    old_value_id_AutoParts =  $this.parents(".record").find('td').eq(1);
+
+    let purchase_price = $this.parents(".record").find('td').eq(2).text();
+    old_value_purchase_price  =  $this.parents(".record").find('td').eq(2);
+
+    let quantity = $this.parents(".record").find('td').eq(3).text();
+    old_value_quantity =  $this.parents(".record").find('td').eq(3);
+
+    let delivery_date = $this.parents(".record").find('td').eq(4).text();
+    old_value_delivery_date =  $this.parents(".record").find('td').eq(4);
+
+    let status = $this.parents(".record").find('td').eq(5).text();
+    old_value_status = $this.parents(".record").find('td').eq(5);
+
+    $("#formEditSupply select[name='id_supplier']").val(id_supplier);
+    $("#formEditSupply select[name='id_AutoParts']").val(id_AutoParts);
+    $("#formEditSupply input[name='purchase_price']").val(purchase_price);
+    $("#formEditSupply input[name='quantity']").val(quantity);
+    $("#formEditSupply input[name='delivery_date']").val(delivery_date);
+    $("#formEditSupply select[name='status']").val(status);
+
+    $("#formEditSupply").attr("action", $this.attr("href"));
+    overlay.classList.add('active');
+    $("#ModalEditSupply").css('display','block');
+    return false;
+});
+
+
+$("#formEditSupply").on("submit", function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var $this = $(this);
+    var valid = true;
+    $('#formEditSupply input').each(function() {
+        let $this = $(this);
+
+        if(!$this.val()) {
+            valid = false;
+            $this.parents('.validate').find('.mySpan').text('Поле пустое');
+        }
+    });
+
+    if(valid){
+        let data = $this.serialize();
+        $.ajax({
+            url: $this.attr("action"),
+            type: "POST",
+            data: data,
+            dataType: "json",
+            success: function(resp){
+                $("#ModalEditSupply").css('display','none');
+                overlay.classList.remove('active');
+
+                let new_value_id_supplier = $("#formEditSupply select[name='id_supplier']").val();
+                let new_text_supplier = $("#formEditSupply select[name='id_supplier'] option[value='" + new_value_id_supplier + "']").text();
+                old_value_supplier.replaceWith('<td id=' + new_value_id_supplier + '>' + new_text_supplier + '</td>');
+
+                let new_value_id_AutoParts = $("#formEditSupply select[name='id_AutoParts']").val();
+                let new_text_id_AutoParts = $("#formEditSupply select[name='id_AutoParts'] option[value='" + new_value_id_AutoParts +"']").text();
+                old_value_id_AutoParts.replaceWith('<td id=' + new_value_id_AutoParts + '>' + new_text_id_AutoParts + '</td>');
+
+                let new_value_purchase_price = $("#formEditSupply input[name='purchase_price']").val();
+                old_value_purchase_price.replaceWith('<td>' + new_value_purchase_price + '</td>');
+
+                let new_value_quantity = $("#formEditSupply input[name='quantity']").val();
+                old_value_quantity.replaceWith('<td>' + new_value_quantity + '</td>');
+
+                let new_value_delivery_date = $("#formEditSupply input[name='delivery_date']").val();
+                old_value_delivery_date.replaceWith('<td>' + new_value_delivery_date + '</td>');
+
+                let new_value_status = $("#formEditSupply select[name='status']").val();
+                let new_text_status  = $("#formEditSupply select[name='status'] option[value='" + new_value_status + "']").text();
+                old_value_status.replaceWith('<td id=' + new_value_status + '>' + new_text_status + '</td>');
+            },
+            error: function(resp){
+                alert("Что-то пошло не так при редактировании");
+            }
+        });
+    }
+    return false;
+});

@@ -57,7 +57,8 @@
         <form id="formCreateStreet" method="post" action="{% url 'create_street' %}">
             <div class="form-group validate">
                 {% csrf_token %}
-                <input value="" type="text" name="street" class="form-control" placeholder="Введите наименование улицы">
+                <input class="form-control" name="street" placeholder="Введите наименование улицы" required type="text"
+                       value="">
                 <small class="text-red text-muted mySpan"></small>
             </div>
             <div class="modal-footer">
@@ -79,7 +80,7 @@
         <form id="formEditStreet" method="post" action="">
             <div class="form-group validate">
                 {% csrf_token %}
-                <input type="text" name="street" class="form-control" placeholder="Введите наименование улицы">
+                <input class="form-control" name="street" placeholder="Введите наименование улицы" required type="text">
                 <small class="text-red text-muted mySpan"></small>
             </div>
             <div class="modal-footer">

@@ -56,7 +56,7 @@
         <form id="formEditCity" method="post" action="">
             <div class="form-group validate">
                 {% csrf_token %}
-                <input type="text" name="city" class="form-control" placeholder="Введите наименование города">
+                <input class="form-control" name="city" placeholder="Введите наименование города" required type="text">
                 <small class="text-red text-muted mySpan"></small>
             </div>
             <div class="modal-footer">
@@ -78,7 +78,8 @@
         <form id="formCreateCity" method="post" action="{% url 'create_city' %}">
             <div class="form-group validate">
                 {% csrf_token %}
-                <input value="" type="text" name="city" class="form-control" placeholder="Введите наименование города">
+                <input class="form-control" name="city" placeholder="Введите наименование города" required type="text"
+                       value="">
                 <small class="text-red text-muted mySpan"></small>
             </div>
             <div class="modal-footer">

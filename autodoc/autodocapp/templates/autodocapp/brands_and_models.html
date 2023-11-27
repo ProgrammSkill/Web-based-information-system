@@ -72,17 +72,17 @@
         <form id="formCreateBrandAndMark" method="post" action="{% url 'create_brand_and_model' %}">
             <div class="form-group validate">
                 {% csrf_token %}
-                <select name="id_brand" class="form-select mb-3" aria-label=".form-select-lg example">
+                <select aria-label=".form-select-lg example" class="form-select mb-3" name="id_brand" required>
                     <option selected>Выберите марку</option>
                     {% for b in brands %}
-                        <option value='{{ b.id }}'>{{ b }}</option>
+                    <option value='{{ b.id }}'>{{ b }}</option>
                     {% endfor %}
                 </select>
                 <small class="text-red text-muted mySpan"></small>
-                <select name="id_model" class="form-select mb-3" aria-label=".form-select-lg example">
+                <select aria-label=".form-select-lg example" class="form-select mb-3" name="id_model" required>
                     <option selected>Выберите модель</option>
                     {% for m in models %}
-                        <option value='{{ m.id }}'>{{ m }}</option>
+                    <option value='{{ m.id }}'>{{ m }}</option>
                     {% endfor %}
                 </select>
                 <small class="text-red text-muted mySpan"></small>
