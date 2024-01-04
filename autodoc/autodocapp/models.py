@@ -3,10 +3,19 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
+    ROLES = (
+        ('administrator', "Администратор"),
+        ('manager', "Менеджер"),
+        ('storekeeper', "Кладовщик"),
+        ('salesman', "Продавец"),
+        ('director', "Директор")
+    )
+
     surname = models.CharField(max_length=30, verbose_name='Фамилия')
     last_name = models.CharField(max_length=30, verbose_name='Отчество')
     birth_date = models.DateField(verbose_name='Дата рождения', null=True)
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name='Фотография')
+    role = models.CharField(default='salesman', max_length=50, choices=ROLES, verbose_name='Роль')
 
 
 class Brands(models.Model):
@@ -17,6 +26,7 @@ class Brands(models.Model):
 
     def get_absolute_url(self):
         return f'autodocapp/marks.html'
+
 
 class Models (models.Model):
     model = models.CharField(max_length=50, verbose_name='Модель марки')
@@ -66,11 +76,11 @@ class AutoParts (models.Model):
     name = models.CharField(max_length=20, verbose_name='Наименование')
     id_brand_and_models = models.ForeignKey('BrandsAndModels', on_delete=models.PROTECT, verbose_name='Автомобиль')
     id_manufacturer = models.ForeignKey('Manufacturers', on_delete=models.PROTECT, verbose_name='Производитель')
-    photo = models.ImageField(upload_to="photos/%Y/%m/%d/", null=True)
     comment = models.TextField(verbose_name='Комментарий')
 
     def __str__(self):
         return self.name
+
 
 class AutoPartsInStock (models.Model):
     id_StoreDepartment = models.ForeignKey('StoreDepartments', on_delete=models.PROTECT, verbose_name='Магазин')
@@ -91,16 +101,15 @@ class Suppliers(models.Model):
         return self.title
 
 
-TYPE = (
-    ("accepted_processing", "Принят в обработку"),
-    ("completed", "Комплектуется"),
-    ("sent", "Отправлен"),
-    ("on_way", "В пути"),
-    ("delivered", "Доставлен")
-)
-
-
 class Supply(models.Model):
+    TYPE = (
+        ("accepted_processing", "Принят в обработку"),
+        ("completed", "Комплектуется"),
+        ("sent", "Отправлен"),
+        ("on_way", "В пути"),
+        ("delivered", "Доставлен")
+    )
+
     id_supplier = models.ForeignKey('Suppliers', on_delete=models.PROTECT, verbose_name='Поставщик')
     id_AutoParts = models.ForeignKey('AutoParts', on_delete=models.PROTECT, verbose_name='Автозапчасть')
     purchase_price = models.FloatField(verbose_name='Цена закупки')

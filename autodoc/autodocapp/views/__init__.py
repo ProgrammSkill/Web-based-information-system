@@ -9,7 +9,7 @@ from autodocapp.forms import *
 
 def CheckRole(request):
     user = request.user
-    role = str(user.groups.all()[0])
+    role = dict(CustomUser.ROLES).get(user.role)
     return role
 
 
@@ -21,6 +21,16 @@ class index(TemplateView):
             return render(request, 'autodocapp/index.html', {'role': role, 'title': 'Главное меню'})
         else:
             return redirect('authorization')
+
+
+class PrintAboutSite(TemplateView):
+    # Checking on authorization in system
+    def get(self, request):
+        if request.user.is_authenticated:
+            role = CheckRole(request)
+            return render(request, 'autodocapp/about_site.html', {'role': role, 'title': 'Главное меню'})
+        else:
+            return redirect('about')
 
 
 class Authorization(LoginView):

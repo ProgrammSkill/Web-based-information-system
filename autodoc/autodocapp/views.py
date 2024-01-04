@@ -7,9 +7,6 @@ from django.views.generic import TemplateView
 from autodocapp.forms import *
 
 
-# from django.http import JsonResponse
-
-
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 

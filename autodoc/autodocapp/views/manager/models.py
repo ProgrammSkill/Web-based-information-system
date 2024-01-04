@@ -34,6 +34,7 @@ class SearchModel(ListView):
         else:
             return redirect('authorization')
 
+
 class delete_model(View):
     def get(self, request, model_id, *args, **kwargs):
         if is_ajax(request=request):

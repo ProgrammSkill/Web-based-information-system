@@ -1,0 +1,59 @@
+{% extends 'autodocapp/base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="col-md-12 well">
+        <hr style="border-top:1px dotted #ccc;"/>
+        <h1 class="page-header">Автозапчасти</h1>
+        <p>
+            <button class="btn btn-primary js-create" type="button">
+                <span class="glyphicon glyphicon-plus"></span>
+                + Новая автозапчасть
+            </button>
+        </p>
+
+        <table class="table table-borderless table-hover" id="table">
+            <thead>
+            <tr>
+                <th scope="col">Артикул</th>
+                <th scope="col">Наименование</th>
+                <th scope="col">Марка</th>
+                <th scope="col">Модель</th>
+                <th scope="col">Комментарий</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for record in auto_parts %}
+            <tr class="record">
+                <td>{{record.vendor_code}}</td>
+                <td>{{record.name}}</td>
+                <td id="{{ record.id_brand_and_models.id_brand.id }}">{{record.id_brand_and_models.id_brand}}</td>
+                <td id="{{ record.id_brand_and_models.id_model.id }}">{{record.id_brand_and_models.id_model}}</td>
+                <td>{{record.comment}}</td>
+
+                <td style="width: 150px">
+                    <a class="btn_delete_record btn-outline-danger" href="{% url 'delete_brand_and_model' record.id %}">
+                        <button class="btn btn-outline-danger">Удалить</button>
+                    </a>
+                </td>
+                <td>
+                    <a class="BthEditBrandAndModel btn-outline-primary"
+                       href="{% url 'edit_brand_and_model' record.id %}">
+                        <button class="btn btn-outline-primary">Редактировать</button>
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td class="text-center" colspan="8">Нет моделей</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="overlay" id="overlay-modal"></div>
+
+{% endblock %}
