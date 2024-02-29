@@ -1,7 +1,13 @@
 from django.shortcuts import redirect, render
+from django.views import View
 
 from .. import CheckRole
+from ...forms import AutoPartsForm
 from ...models import *
+
+
+def is_ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
 
 def PrintAutoParts(request):
@@ -27,3 +33,14 @@ def PrintAutoParts(request):
         return render(request, 'autodocapp/auto_parts.html', context)
     else:
         return redirect('authorization')
+
+
+class AutoPartsCreate(View):
+    form_class = AutoPartsForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            print('dcsdsd')
+            form.save()
+        return redirect('auto_parts')

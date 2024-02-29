@@ -20,6 +20,7 @@ def PrintManufacturers(request):
     else:
         return redirect('authorization')
 
+
 class SearchManufacturer(ListView):
     template_name = 'autodocapp/cities.html'
     context_object_name = 'Manufacturers'
@@ -33,6 +34,7 @@ class SearchManufacturer(ListView):
         else:
             return redirect('authorization')
 
+
 class delete_manufacturer(View):
     def get(self, request, manufacturer_id, *args, **kwargs):
         if is_ajax(request=request):
@@ -41,6 +43,7 @@ class delete_manufacturer(View):
             return JsonResponse({"message": "Success"})
         return JsonResponse({"message": "Wrong request"})
 
+
 class ManufacturerCreateView(View):
     form_class = ManufactureForm
     def post(self, request,  *args, **kwargs):
@@ -48,6 +51,7 @@ class ManufacturerCreateView(View):
         if form.is_valid():
             form.save()
         return redirect('manufacturers')
+
 
 class edit_manufacturer(View):
     form_class = ManufactureForm

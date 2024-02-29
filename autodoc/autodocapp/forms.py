@@ -68,3 +68,9 @@ class SupplyForm(ModelForm):
     class Meta:
         model = Supply
         fields = '__all__'
+
+
+class AutoPartsForm(ModelForm):
+    class Meta:
+        model = AutoParts
+        fields = '__all__'
